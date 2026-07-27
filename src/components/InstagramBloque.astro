@@ -1,0 +1,157 @@
+---
+import NavIcon from './NavIcon.astro';
+import InstagramPostTile from './InstagramPostTile.astro';
+import {
+	instagramPosts,
+	instagramProfileUrl,
+} from '../config/instagramPosts.ts';
+
+const handle = '@bali_personal_transport_taxi';
+---
+
+<div class="instagram-bloque-group">
+	<div class="instagram-bloque-intro-shell">
+		<h2
+			id="instagram-bloque-intro"
+			class="instagram-bloque__intro text type-14 lh-26 mx-auto max-w-3xl px-4 py-4 text-fg-gray-900 sm:py-5 lg:py-6"
+			data-instagram-bloque-title
+		>
+			Our Instagram
+		</h2>
+	</div>
+
+	<section
+		class="instagram-bloque section relative z-[1] bg-surface-muted/40 pb-8 lg:pb-12"
+		aria-labelledby="instagram-bloque-intro"
+	>
+		<div
+			class="instagram-bloque__scroll relative overflow-x-hidden overscroll-y-contain max-lg:h-auto max-lg:overflow-visible lg:h-[400px] lg:max-h-[400px] lg:overflow-y-scroll"
+			tabindex="0"
+			role="region"
+			aria-label="Instagram posts — scroll vertically"
+		>
+		<header class="relative top-0 z-[2] border-b border-surface-subtle bg-white/95 px-4 py-3 backdrop-blur-sm">
+			<div class="mx-auto flex max-w-3xl items-center justify-between gap-3">
+				<div class="flex min-w-0 items-center gap-2.5">
+					<span class="footer-icon-ring footer-icon-ring--compact shrink-0" aria-hidden="true">
+						<NavIcon name="instagram" size="md" class="footer-icon-glyph" />
+					</span>
+					<div class="min-w-0">
+						<h2 id="instagram-bloque-title" class="type-14 lh-22 truncate text-fg-gray-900">
+							Instagram
+						</h2>
+						<p class="type-11-2 lh-22 truncate text-fg-gray-500">{handle}</p>
+					</div>
+				</div>
+				<a
+					href={instagramProfileUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="type-12-8 shrink-0 rounded-full border-2 border-brand-amber bg-white px-3 py-1.5 text-fg-ink no-underline transition-colors hover:bg-brand-amber/15"
+				>
+					Follow
+				</a>
+			</div>
+		</header>
+
+		<div
+			class="instagram-bloque__grid mx-auto grid max-w-3xl grid-cols-1 gap-3 p-4 sm:grid-cols-2 md:grid-cols-3"
+		>
+			{
+				instagramPosts.map((post, index) => (
+					<div class:list={['instagram-bloque__cell min-h-0', index >= 3 && 'hidden lg:block']}>
+						<InstagramPostTile post={post} squareOnSm />
+					</div>
+				))
+			}
+		</div>
+
+		<p class="type-11-2 lh-22 mx-auto max-w-3xl px-4 pb-4 text-center text-fg-secondary">
+			Placeholder photos (Unsplash / Picsum) — swap files in
+			<code class="text-fg-gray-600">src/assets/instagram/</code>.
+		</p>
+		</div>
+	</section>
+</div>
+
+<style>
+	.instagram-bloque-group {
+		position: relative;
+		width: 100%;
+	}
+
+	.instagram-bloque-intro-shell {
+		border-top: 1px solid var(--color-surface-subtle);
+		border-bottom: 1px solid var(--color-surface-subtle);
+		background: linear-gradient(
+			180deg,
+			var(--color-white) 0%,
+			var(--color-surface-muted) 100%
+		);
+	}
+
+	.instagram-bloque__intro {
+		margin: 0;
+	}
+
+	.instagram-bloque {
+		position: relative;
+		width: 100%;
+	}
+
+	.instagram-bloque__scroll {
+		position: relative;
+		z-index: 1;
+		-webkit-overflow-scrolling: touch;
+		touch-action: pan-y;
+		overscroll-behavior-y: contain;
+	}
+
+	@media (min-width: 1024px) {
+		.instagram-bloque__scroll {
+			height: 400px;
+			max-height: 400px;
+			overflow-y: scroll;
+		}
+	}
+
+	.instagram-bloque__grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	@media (min-width: 640px) {
+		.instagram-bloque__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 768px) {
+		.instagram-bloque__grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	.instagram-bloque__cell {
+		min-width: 0;
+	}
+
+	.instagram-bloque__tile {
+		min-height: 0;
+	}
+
+	.footer-icon-ring--compact {
+		display: flex;
+		width: 2rem;
+		height: 2rem;
+		align-items: center;
+		justify-content: center;
+		border-radius: 9999px;
+		border: 2px solid var(--color-brand-amber, #fdb317);
+		background: var(--color-surface-muted, #f7f7f7);
+		box-shadow: 0 0 0 1px rgba(253, 179, 23, 0.22);
+	}
+
+	.footer-icon-glyph {
+		color: var(--text-ink, #212529);
+	}
+</style>

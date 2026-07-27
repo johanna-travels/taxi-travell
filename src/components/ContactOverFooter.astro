@@ -1,0 +1,103 @@
+---
+import NavIcon from './NavIcon.astro';
+import { contactFormCopy } from '../config/siteFooter.ts';
+---
+
+<section
+	class="contact-over-footer relative z-[2] -mt-2 px-0 pb-6 pt-8 lg:pt-10"
+	aria-labelledby="contact-over-footer-title"
+>
+	<div class="container">
+		<div
+			class="contact-over-footer__panel relative -mb-10 overflow-hidden rounded-xl border border-surface-subtle bg-white shadow-[0_8px_32px_rgba(33,37,41,0.1)] lg:-mb-12"
+		>
+			<header class="relative top-0 z-[2] border-b border-surface-subtle bg-white/95 px-4 py-3 backdrop-blur-sm">
+				<div class="mx-auto flex max-w-3xl items-center gap-2.5">
+					<span class="footer-icon-ring footer-icon-ring--compact shrink-0" aria-hidden="true">
+						<NavIcon name="phone" size="md" class="footer-icon-glyph" />
+					</span>
+					<div class="min-w-0">
+						<h2 id="contact-over-footer-title" class="type-14 lh-22 truncate text-fg-gray-900">
+							{contactFormCopy.title}
+						</h2>
+						<p class="type-11-2 lh-22 truncate text-fg-gray-500">{contactFormCopy.note}</p>
+					</div>
+				</div>
+			</header>
+
+			<form
+				class="contact-over-footer__form px-4 py-6 sm:px-6 lg:px-8"
+				action="#"
+				method="get"
+				novalidate
+			>
+				<div class="row contact-over-footer__row gap-y-4">
+					<div class="col-md-3 min-w-0">
+						<label class="type-11-2 lh-22 mb-1 block text-fg-gray-700" for="contact-name">
+							Name
+						</label>
+						<input
+							id="contact-name"
+							name="name"
+							type="text"
+							autocomplete="name"
+							class="type-12-8 w-full rounded-lg border border-surface-subtle bg-surface-muted px-3 py-2 text-fg-ink outline-none focus-visible:border-brand-amber focus-visible:ring-2 focus-visible:ring-brand-amber/30"
+							placeholder="Your name"
+						/>
+					</div>
+					<div class="col-md-3 min-w-0">
+						<label class="type-11-2 lh-22 mb-1 block text-fg-gray-700" for="contact-email">
+							Email
+						</label>
+						<input
+							id="contact-email"
+							name="email"
+							type="email"
+							autocomplete="email"
+							class="type-12-8 w-full rounded-lg border border-surface-subtle bg-surface-muted px-3 py-2 text-fg-ink outline-none focus-visible:border-brand-amber focus-visible:ring-2 focus-visible:ring-brand-amber/30"
+							placeholder="you@email.com"
+						/>
+					</div>
+					<div class="col-md-3 min-w-0">
+						<label class="type-11-2 lh-22 mb-1 block text-fg-gray-700" for="contact-message">
+							Message
+						</label>
+						<textarea
+							id="contact-message"
+							name="message"
+							rows="2"
+							class="type-12-8 w-full resize-y rounded-lg border border-surface-subtle bg-surface-muted px-3 py-2 text-fg-ink outline-none focus-visible:border-brand-amber focus-visible:ring-2 focus-visible:ring-brand-amber/30"
+							placeholder="Pickup date, route…"
+						></textarea>
+					</div>
+					<div class="col-md-3 flex min-w-0 items-end">
+						<button
+							type="button"
+							class="type-12-8 w-full rounded-full border-2 border-brand-amber bg-brand-amber/15 px-4 py-2.5 text-fg-ink transition-colors hover:bg-brand-amber/25"
+						>
+							Send (soon)
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact-over-footer__form button {
+		cursor: not-allowed;
+		opacity: 0.92;
+	}
+
+	.contact-over-footer__row {
+		align-items: flex-end;
+	}
+
+	/* Mobile: sit above fixed icon footer */
+	@media (max-width: 1023px) {
+		.contact-over-footer {
+			padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+		}
+	}
+</style>

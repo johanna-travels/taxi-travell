@@ -1,0 +1,31 @@
+---
+description: 3G-first performance — minimal bytes, deferred JS, no icon fonts
+alwaysApply: true
+---
+
+# Performance (3G first)
+
+This site targets slow networks (Bali mobile). **Performance before polish.**
+
+## Non-negotiables
+
+1. **No Font Awesome / icon font CDNs** — local SVG in `src/icons/*.svg`, inlined via `NavIcon.astro` (zero extra requests).
+2. **Open Sans latin subset only** — `@fontsource/open-sans/latin-400.css`; preload WOFF2 in page `<head>`.
+3. **One CSS entry** — import `global.css` once per page (not in every component).
+4. **Defer GSAP** — `scheduleScrollSiteInit()` + dynamic `import('gsap')`; never block first paint.
+5. **Slow network / save-data** — skip GSAP parallax only; footer **always** CSS (`initFooterScroll`), never GSAP.
+6. **Images** — local files in `src/assets/`; **`getImage()` at build** for Instagram tiles (360/480 WebP). Avoid `<Image>` dev `/_image?@fs…` for grid tiles. WebP, explicit `width`/`height`, `loading="lazy"` below fold.
+7. **No `will-change` on static UI** — only during active GSAP footer animation.
+8. **Third-party** — no analytics/widgets without user approval; they kill 3G.
+
+## Before adding dependencies
+
+Ask: can CSS or inline SVG do it? If adding JS >5KB gzip, defer and code-split.
+
+## Verify after changes
+
+```bash
+npm run build && ls -la dist/_astro/
+```
+
+Target: HTML + CSS + one latin WOFF2 + lazy JS chunk — not hundreds of KB of fonts/icons up front.

@@ -1,0 +1,64 @@
+---
+import { getImage } from 'astro:assets';
+import type { InstagramPost } from '../config/instagramPosts.ts';
+import {
+	instagramTileQuality,
+	instagramTileSizes,
+	instagramTileWidth,
+	instagramTileWidth2x,
+} from '../config/instagramImage.ts';
+
+interface Props {
+	post: InstagramPost;
+	squareOnSm?: boolean;
+}
+
+const { post, squareOnSm = false } = Astro.props;
+
+/** Build-time resize of local assets — no full-size JPG in `src`, no 640px default `src`. */
+const imgDefault = await getImage({
+	src: post.image,
+	width: instagramTileWidth,
+	format: 'webp',
+	quality: instagramTileQuality,
+});
+
+const imgRetina = await getImage({
+	src: post.image,
+	width: instagramTileWidth2x,
+	format: 'webp',
+	quality: instagramTileQuality,
+});
+---
+
+<a
+	href={post.href}
+	target="_blank"
+	rel="noopener noreferrer"
+	class:list={[
+		'instagram-bloque__tile group relative block w-full overflow-hidden rounded-lg border-2 border-brand-amber/35 bg-surface-muted no-underline shadow-sm transition-[border-color,box-shadow] hover:border-brand-amber hover:shadow-md',
+		squareOnSm ? 'aspect-[4/5] sm:aspect-square' : 'aspect-[4/5]',
+	]}
+>
+	<img
+		src={imgDefault.src}
+		srcset={`${imgDefault.src} ${instagramTileWidth}w, ${imgRetina.src} ${instagramTileWidth2x}w`}
+		sizes={instagramTileSizes}
+		alt={post.alt}
+		width={imgDefault.attributes.width}
+		height={imgDefault.attributes.height}
+		class="h-full w-full max-w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+		loading="lazy"
+		decoding="async"
+		fetchpriority="low"
+	/>
+	<span
+		class="pointer-events-none absolute inset-0 bg-linear-to-t from-fg-gray-900/45 via-transparent to-transparent opacity-80"
+		aria-hidden="true"
+	></span>
+	<span
+		class="type-11-2 lh-22 pointer-events-none absolute inset-x-0 bottom-0 px-2 pb-2 text-fg-white"
+	>
+		View on Instagram
+	</span>
+</a>

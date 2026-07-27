@@ -1,0 +1,116 @@
+---
+import NavIcon from '../components/NavIcon.astro';
+import { footerNavItems } from '../config/footerNav.ts';
+
+interface Props {
+	activeId?: string;
+}
+
+const { activeId = 'home' } = Astro.props;
+---
+
+<nav
+	class="scroll-footer font-sans shadow-[0_-1px_0_rgba(0,0,0,0.06)]"
+	aria-label="Mobile navigation"
+>
+	<div class="scroll-footer__grid mx-auto w-full max-w-screen-xl px-2 sm:px-4">
+		{
+			footerNavItems.map((item) => {
+				const isActive = item.id === activeId;
+				const linkClass = isActive
+					? 'text-fg-gray-900'
+					: 'text-fg-gray-600 hover:text-fg-gray-900';
+				const isExternal = item.href.startsWith('http');
+				return (
+					<div class="min-w-0">
+						<a
+							href={item.href}
+							class:list={[
+								'scroll-footer__link group no-underline transition-colors [-webkit-tap-highlight-color:transparent] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-amber',
+								linkClass,
+							]}
+							{...(isExternal
+								? { target: '_blank', rel: 'noopener noreferrer' }
+								: {})}
+							aria-current={isActive ? 'page' : undefined}
+						>
+							<span
+								class:list={[
+									'footer-icon-ring',
+									isActive && 'footer-icon-ring--active',
+								]}
+							>
+								<NavIcon name={item.icon} size="lg" class="footer-icon-glyph" />
+							</span>
+							<span class="footer-nav-label type-11-2 lh-22 w-full truncate">
+								{item.label}
+							</span>
+						</a>
+					</div>
+				);
+			})
+		}
+	</div>
+</nav>
+
+<style>
+	/* Palette: amber ring · beige fill · ink glyph (all items identical) */
+	.footer-icon-ring {
+		display: flex;
+		width: 2.5rem;
+		height: 2.5rem;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		border-radius: 9999px;
+		border: 2px solid var(--color-brand-amber, #fdb317);
+		background: var(--color-surface-muted, #f7f7f7);
+		box-shadow:
+			0 0 0 1px rgba(253, 179, 23, 0.22),
+			0 1px 2px rgba(33, 37, 41, 0.06);
+	}
+
+	.footer-icon-ring--active {
+		background: rgba(253, 179, 23, 0.14);
+		box-shadow:
+			0 0 0 2px rgba(253, 179, 23, 0.38),
+			0 1px 3px rgba(33, 37, 41, 0.08);
+	}
+
+	.footer-icon-glyph {
+		color: var(--text-ink, #212529);
+	}
+
+	.group:hover .footer-icon-ring:not(.footer-icon-ring--active) {
+		background: #f5f5f5;
+		box-shadow:
+			0 0 0 1px rgba(253, 179, 23, 0.32),
+			0 1px 2px rgba(33, 37, 41, 0.08);
+	}
+
+	.footer-nav-label {
+		margin-top: 0.375rem;
+		color: inherit;
+
+	}
+
+	.scroll-footer {
+		opacity: 1;
+		transform: translateY(0);
+		transition:
+			opacity 0.35s ease,
+			transform 0.35s ease;
+	}
+
+	.scroll-footer--hidden {
+		opacity: 0;
+		transform: translateY(28px);
+		pointer-events: none;
+	}
+
+	@media (min-width: 1024px) {
+		.scroll-footer {
+			display: none !important;
+		}
+	}
+</style>

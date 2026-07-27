@@ -1,0 +1,99 @@
+/*
+ * Typography — Open Sans (latin only) + inline SVG nav icons (no icon font).
+ * Agent principles: .cursor/rules/typography-bible.mdc, performance-3g-first.mdc
+ */
+
+@import "@fontsource/open-sans/latin-400.css";
+
+:root {
+	--font-family-sans: "Open Sans", Arial, Helvetica, sans-serif;
+
+	--font-weight-normal: 400;
+
+	/* Reference size at md; actual body size is responsive (see responsive-type.css) */
+	--font-size-base-ref: 16px;
+	--line-height-base: 18.4px;
+
+	/* Open Sans scale */
+	--font-size-14: 14px;
+	--line-height-12-6: 12.6px;
+	--font-size-12-8: 12.8px;
+	--line-height-20: 20px;
+	--font-size-11-2: 11.2px;
+	--line-height-22: 22px;
+	--line-height-24: 24px;
+	--line-height-26: 26px;
+	--line-height-28: 28px;
+	--line-height-0: 0;
+
+	/* Font Awesome 6 Brands icon metrics */
+	--icon-brand-size-sm: 12.8px;
+	--icon-brand-size-md: 14px;
+	--icon-brand-size-lg: 25px;
+	--icon-brand-lh-sm: 12.8px;
+	--icon-brand-lh-md: 14px;
+	--icon-brand-lh-lg: 25px;
+}
+
+/* --- Base body --- */
+.font-sans-base,
+body {
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--line-height-body-ratio);
+}
+
+/* --- Open Sans presets (size + default line-height from spec) --- */
+.type-14 {
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-14);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--line-height-12-6);
+}
+
+.type-12-8 {
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-12-8);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--line-height-20);
+}
+
+.type-11-2 {
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-11-2);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--line-height-22);
+}
+
+/* Line-height utilities (pair with any Open Sans size) */
+.lh-22 {
+	line-height: var(--line-height-22);
+}
+.lh-24 {
+	line-height: var(--line-height-24);
+}
+.lh-26 {
+	line-height: var(--line-height-26);
+}
+.lh-28 {
+	line-height: var(--line-height-28);
+}
+.lh-0 {
+	line-height: var(--line-height-0);
+}
+
+.icon-brand-sm {
+	width: var(--icon-brand-size-sm);
+	height: var(--icon-brand-size-sm);
+}
+
+.icon-brand-md {
+	width: var(--icon-brand-size-md);
+	height: var(--icon-brand-size-md);
+}
+
+.icon-brand-lg {
+	width: var(--icon-brand-size-lg);
+	height: var(--icon-brand-size-lg);
+}

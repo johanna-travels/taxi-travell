@@ -1,0 +1,62 @@
+---
+description: Typography and readability bible for Taxi-driver-page — follow on every UI/copy change
+alwaysApply: true
+---
+
+# Typography bible (Taxi-driver-page)
+
+Apply these principles whenever you add or change layout, copy, styles, or components.
+
+## 1. Readable fonts
+
+- **One text family:** Open Sans (`font-sans`, `var(--font-family-sans)`) with Arial/Helvetica fallback — already in `src/styles/typography.css`.
+- **Icons only:** Font Awesome 6 Brands (`.fa-brand`, `.icon-brand-*`) for social/brand glyphs — not for body text.
+- Do not introduce extra display or script fonts without explicit user approval.
+
+## 2. Don’t overboard on fonts
+
+- Max **one sans stack + icon font**. No mixing third-party text faces.
+- Use **weight 400** by default; heavier weights only for clear hierarchy (one step up, e.g. semibold on a single H1).
+
+## 3. Clear hierarchy
+
+- **One primary H1** per page; logical heading order (h1 → h2 → h3).
+- Map roles to tokens: headings `text-fg-gray-900` / `text-fg-black`, body `text-fg-ink`, secondary `text-fg-gray-500` / `text-fg-secondary`, accents `text-fg-amber` / `text-fg-green` sparingly.
+- Size steps: responsive body (`var(--font-size-base)` in `responsive-type.css`) + fixed presets (`.type-14`, `.type-12-8`, `.type-11-2`) for UI chrome — don’t invent random `text-[13px]` unless matching spec.
+
+## 4. Breathing room
+
+- Prefer generous **padding/margin** on sections (`gap`, `py`, `px`) over tight walls of text.
+- Pair line-height utilities (`.lh-22`–`.lh-28`) with dense blocks; body uses **1.15** ratio — don’t crush multi-line paragraphs.
+
+## 5. Letter spacing
+
+- Default tracking for body; use **`tracking-wide` / uppercase** only for short labels (e.g. one-line kicker), not paragraphs.
+- If uppercase, keep copy **short** and increase tracking slightly — never uppercase long sentences.
+
+## 6. Alignment
+
+- **Left-align** body copy (LTR). Center only headlines/CTAs when design calls for it — keep blocks consistent within a section.
+- Use flex/grid alignment so icons + text baselines line up (e.g. `items-center` on icon rows).
+
+## 7. Contrast
+
+- Use **`text-fg-*` on appropriate backgrounds** — e.g. `text-fg-white` / `text-fg-pale` only on dark bands (`bg-fg-gray-900`, `bg-black`).
+- Avoid `text-fg-muted` on `bg-surface-muted` for essential content; reserve low-contrast pairs for non-critical meta.
+- Aim for WCAG-friendly pairs on CTAs (amber/yellow buttons: dark text on `brand-yellow`, not pale gray on yellow).
+
+## 8. All devices
+
+- **Mobile-first:** body scales 14px → 22px via `src/styles/responsive-type.css` — don’t override `body` font-size in components without reason.
+- Test layouts at **&lt;640, 768, 1024, 1280, 1536**; fixed `.type-*` and icon sizes stay px — ensure they still fit on small screens (wrap, don’t overflow).
+
+## 9. ALL CAPS sparingly
+
+- No shouting: caps for **tiny labels only** (≤ few words), not headings or body.
+- Prefer sentence case for headings and buttons unless brand requires otherwise.
+
+## 10. Before shipping UI
+
+- Hierarchy obvious at a glance? Contrast OK on mobile? One font family? Spacing consistent? Then ship.
+
+**Source of truth:** `src/styles/global.css` (colors), `typography.css` (type + icons), `responsive-type.css` (breakpoints).

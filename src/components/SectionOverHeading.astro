@@ -1,0 +1,41 @@
+---
+interface Props {
+	text?: string;
+	class?: string;
+}
+
+const { text = 'We are gonna to build', class: className = '' } = Astro.props;
+const words = text.trim().split(/\s+/).filter(Boolean);
+---
+
+<div
+	class:list={['section-over-heading pointer-events-none absolute inset-x-0 top-0 z-20', className]}
+	data-section-over-heading
+>
+	<div class="mx-auto max-w-3xl px-6 pt-14 sm:pt-20">
+		<span
+			class="section-over-heading__title block text-fg-gray-900"
+			role="heading"
+			aria-level="1"
+		>
+			{
+				words.map((word) => (
+					<span class="section-over-heading__word inline-block whitespace-nowrap">{word}</span>
+				))
+			}
+		</span>
+	</div>
+</div>
+
+<style>
+	.section-over-heading__title {
+		font-family: var(--font-family-sans);
+		font-size: clamp(1.375rem, 4vw + 0.5rem, 2rem);
+		font-weight: var(--font-weight-normal);
+		line-height: 1.2;
+	}
+
+	.section-over-heading__word:not(:last-child) {
+		margin-inline-end: 0.28em;
+	}
+</style>

@@ -1,0 +1,197 @@
+@import "tailwindcss";
+@import "./typography.css";
+@import "./responsive-type.css";
+
+/* Surfaces & brand (backgrounds, borders, CTAs) */
+@theme {
+	--font-sans: "Open Sans", Arial, Helvetica, sans-serif;
+
+	--font-size-base: 16px;
+	--font-size-14: 14px;
+	--font-size-12-8: 12.8px;
+	--font-size-11-2: 11.2px;
+
+	--line-height-base: 18.4px;
+	--line-height-12-6: 12.6px;
+	--line-height-20: 20px;
+	--line-height-22: 22px;
+	--line-height-24: 24px;
+	--line-height-26: 26px;
+	--line-height-28: 28px;
+	--color-white: #ffffff;
+	--color-surface-muted: #f7f7f7;
+	--color-surface-subtle: #f5f5f5;
+	--color-brand-yellow: #ffe10a;
+	--color-brand-amber: #fdb317;
+	--color-brand-green: #25d366;
+
+	/* Text colours — utilities: text-fg-ink, text-fg-muted, … */
+	--color-fg-white: #ffffff;
+	--color-fg-pale: #f1f1f1;
+	--color-fg-soft: #c4c1c1;
+	--color-fg-amber: #fdb317;
+	--color-fg-muted: #b7b7b7;
+	--color-fg-secondary: #8c909e;
+	--color-fg-danger: #f15c59;
+	--color-fg-gray-700: #7a7a7a;
+	--color-fg-gray-600: #777777;
+	--color-fg-green: #00852f;
+	--color-fg-gray-500: #666666;
+	--color-fg-gray-400: #444444;
+	--color-fg-gray-300: #333333;
+	--color-fg-ink: #212529;
+	--color-fg-green-deep: #002b11;
+	--color-fg-gray-800: #222222;
+	--color-fg-gray-900: #111111;
+	--color-fg-black: #000000;
+}
+
+:root {
+	--color-white: #ffffff;
+	--color-surface-muted: #f7f7f7;
+	--color-surface-subtle: #f5f5f5;
+	--color-brand-yellow: #ffe10a;
+	--color-brand-amber: #fdb317;
+	--color-brand-green: #25d366;
+
+	--text-white: #ffffff;
+	--text-pale: #f1f1f1;
+	--text-soft: #c4c1c1;
+	--text-amber: #fdb317;
+	--text-muted: #b7b7b7;
+	--text-secondary: #8c909e;
+	--text-danger: #f15c59;
+	--text-gray-700: #7a7a7a;
+	--text-gray-600: #777777;
+	--text-green: #00852f;
+	--text-gray-500: #666666;
+	--text-gray-400: #444444;
+	--text-gray-300: #333333;
+	--text-ink: #212529;
+	--text-green-deep: #002b11;
+	--text-gray-800: #222222;
+	--text-gray-900: #111111;
+	--text-black: #000000;
+
+	--color-bg: var(--color-white);
+	--color-bg-muted: var(--color-surface-muted);
+	--color-text: var(--text-ink);
+	--color-text-strong: var(--text-gray-900);
+	--color-text-muted: var(--text-gray-500);
+	--color-text-subtle: var(--text-secondary);
+	--color-accent: var(--color-brand-yellow);
+	--color-accent-secondary: var(--text-amber);
+	--color-cta: var(--color-brand-green);
+	--color-text-success: var(--text-green);
+	--color-text-error: var(--text-danger);
+}
+
+body {
+	background-color: var(--color-bg);
+	color: var(--color-text);
+}
+
+/* Page spacing — see src/styles/AGENT-LAYOUT.md */
+.section-gutter {
+	padding-inline: 1rem;
+}
+
+@media (min-width: 768px) {
+	.section-gutter {
+		padding-inline: 1.5rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.section-gutter {
+		padding-inline: 4rem;
+	}
+}
+
+@media (min-width: 1280px) {
+	.section-gutter {
+		padding-inline: 5rem;
+	}
+}
+
+/* Bootstrap-like footer layout (mobile first) */
+.container {
+	width: 100%;
+	max-width: 1340px;
+	margin-inline: auto;
+	padding-inline: 1rem;
+}
+
+@media (min-width: 768px) {
+	.container {
+		padding-inline: 1.5rem;
+	}
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin-inline: -0.75rem;
+}
+
+.col-md-3 {
+	box-sizing: border-box;
+	width: 100%;
+	padding-inline: 0.75rem;
+	margin-bottom: 1.5rem;
+}
+
+.col-md-4,
+.col-md-8 {
+	box-sizing: border-box;
+	width: 100%;
+	padding-inline: 0.75rem;
+	margin-bottom: 1.25rem;
+}
+
+.col-6 {
+	box-sizing: border-box;
+	flex: 0 0 50%;
+	max-width: 50%;
+	padding-inline: 0.5rem;
+	margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+	.col-6.col-md-3 {
+		flex: 0 0 25%;
+		max-width: 25%;
+		padding-inline: 0.5rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.col-md-4,
+	.col-md-8 {
+		margin-bottom: 0;
+	}
+}
+
+@media (min-width: 768px) {
+	.col-md-3 {
+		flex: 0 0 25%;
+		max-width: 25%;
+		margin-bottom: 0;
+	}
+
+	.col-md-4 {
+		box-sizing: border-box;
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%;
+		padding-inline: 0.75rem;
+		margin-bottom: 0;
+	}
+
+	.col-md-8 {
+		box-sizing: border-box;
+		flex: 0 0 66.666667%;
+		max-width: 66.666667%;
+		padding-inline: 0.75rem;
+		margin-bottom: 0;
+	}
+}

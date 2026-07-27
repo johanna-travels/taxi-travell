@@ -1,0 +1,55 @@
+---
+import { navIconSvg, type NavIconName } from '../icons/index.ts';
+
+interface Props {
+	name: NavIconName;
+	/** sm 12.8px · md 14px · lg 25px (footer default) */
+	size?: 'sm' | 'md' | 'lg';
+	class?: string;
+}
+
+const { name, size = 'md', class: className = '' } = Astro.props;
+
+const sizeClass = {
+	sm: 'nav-icon--sm',
+	md: 'nav-icon--md',
+	lg: 'nav-icon--lg',
+}[size];
+---
+
+<span
+	class:list={['nav-icon', sizeClass, className]}
+	set:html={navIconSvg[name]}
+/>
+
+<style>
+	.nav-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		line-height: 0;
+		color: inherit;
+	}
+
+	.nav-icon :global(svg) {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.nav-icon--sm {
+		width: var(--icon-brand-size-sm, 12.8px);
+		height: var(--icon-brand-size-sm, 12.8px);
+	}
+
+	.nav-icon--md {
+		width: var(--icon-brand-size-md, 14px);
+		height: var(--icon-brand-size-md, 14px);
+	}
+
+	.nav-icon--lg {
+		width: var(--icon-brand-size-lg, 25px);
+		height: var(--icon-brand-size-lg, 25px);
+	}
+</style>

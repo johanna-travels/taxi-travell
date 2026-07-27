@@ -1,0 +1,66 @@
+---
+import { contactScrollBandCopy } from '../config/contactScrollBand.ts';
+import { btnContact1Classes } from '../config/tourPackages.ts';
+
+const { title, body, ctaLabel, ctaHref } = contactScrollBandCopy;
+---
+
+<section
+	class="contact-scroll-band section border-y border-surface-subtle bg-surface-muted py-8 md:py-8 lg:py-16"
+	aria-labelledby="contact-scroll-band-title"
+>
+	<div class="container contact-scroll-band__container">
+		<div class="row contact-scroll-band__row gap-8 md:justify-between md:gap-8 lg:gap-12">
+			<div class="col-md-8 contact-scroll-band__copy mb-0">
+				<h3 id="contact-scroll-band-title" class="title-contact type-14 lh-26 text-fg-gray-900">
+					{title}
+				</h3>
+				<p class="content-contact type-12-8 lh-24 mt-6 text-fg-gray-600 md:mt-6 lg:mt-8">
+					{body}
+				</p>
+			</div>
+			<div class="col-md-4 center-android contact-scroll-band__cta mb-0">
+				<a
+					class={btnContact1Classes}
+					href={ctaHref}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					{ctaLabel}
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact-scroll-band__container {
+		max-width: 1240px;
+	}
+
+	.contact-scroll-band__row {
+		align-items: center;
+	}
+
+	.title-contact {
+		margin: 0;
+	}
+
+	.content-contact {
+		margin-bottom: 0;
+		max-width: 42rem;
+	}
+
+	.center-android {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	@media (min-width: 768px) {
+		.contact-scroll-band__cta.center-android {
+			align-self: center;
+			justify-content: flex-end;
+		}
+	}
+</style>

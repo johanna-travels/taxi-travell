@@ -1,0 +1,50 @@
+---
+import { siteFooterColumns } from '../config/siteFooter.ts';
+
+const columns = [
+	siteFooterColumns.links,
+	siteFooterColumns.info,
+	siteFooterColumns.contact,
+	siteFooterColumns.hours,
+];
+---
+
+<footer class="site-footer relative z-[1] border-t border-surface-subtle bg-surface-muted pt-16 lg:pt-20">
+	<div class="container site-footer__main pb-[calc(4.75rem+env(safe-area-inset-bottom))] pt-4 lg:pb-12 lg:pt-6">
+		<div class="row">
+			{
+				columns.map((col) => (
+					<div class="col-md-3">
+						<h3 class="type-14 lh-22 text-fg-gray-900">{col.title}</h3>
+						<ul class="mt-3 space-y-2">
+							{col.items.map((item) => (
+								<li>
+									<a
+										href={item.href}
+										class="type-12-8 lh-22 text-fg-gray-600 no-underline transition-colors hover:text-fg-gray-900"
+										{...(item.href.startsWith('http')
+											? { target: '_blank', rel: 'noopener noreferrer' }
+											: {})}
+									>
+										{item.label}
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</div>
+		<p class="type-11-2 lh-22 mt-10 border-t border-surface-subtle pt-6 text-center text-fg-secondary">
+			© {new Date().getFullYear()} Tejaku Lataxi · Bali personal transport
+		</p>
+	</div>
+</footer>
+
+<style>
+	@media (min-width: 1024px) {
+		.site-footer .site-footer__main {
+			padding-bottom: 3rem;
+		}
+	}
+</style>
