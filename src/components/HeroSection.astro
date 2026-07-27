@@ -1,0 +1,171 @@
+---
+import { getImage } from 'astro:assets';
+import {
+	heroBrandImage,
+	heroBrandImageQuality,
+	heroBrandImageSizes,
+	heroBrandImageWidths,
+	heroCopy,
+	heroHeadline,
+	heroLayout,
+} from '../config/hero.ts';
+import { btnContact1Classes } from '../config/tourPackages.ts';
+import { featureIconSvg } from '../icons/feature.ts';
+
+const brandImages = await Promise.all(
+	heroBrandImageWidths.map((width) =>
+		getImage({
+			src: heroBrandImage.src,
+			width,
+			format: 'webp',
+			quality: heroBrandImageQuality,
+		}),
+	),
+);
+
+const [brandImgSm, brandImgMd, brandImgLg] = brandImages;
+const brandAspect = heroBrandImage.width / heroBrandImage.height;
+const brandDefaultWidth = heroBrandImageWidths[0];
+---
+
+<section
+	class="hero section relative block bg-white"
+	style={`padding-top: ${heroLayout.sectionPaddingTop}; padding-bottom: ${heroLayout.sectionPaddingBottom}`}
+	aria-labelledby="hero-heading"
+>
+	<div
+		class="hero__container mx-auto flex w-full max-w-[767px] flex-col items-center px-4 md:px-6"
+	>
+		<div
+			class="hero__copy flex w-full flex-col items-center text-center"
+			style={`padding-bottom: ${heroLayout.copyPaddingBottom}`}
+		>
+			<div
+				class="hero__title-stack flex w-full flex-col items-center py-[6px] text-center"
+				data-section-over-heading
+			>
+				<h1 id="hero-heading" class="hero__title-main type-hero-title text-fg-gray-800">
+					{heroHeadline.title}
+				</h1>
+				<h2 class="hero__title-sub type-hero-title text-fg-gray-900">{heroHeadline.subtitle}</h2>
+			</div>
+
+			<p class="type-hero-lead hero__intro text-fg-secondary">{heroCopy.intro}</p>
+
+			<div class="hero__cta m-0">
+				<a
+					class={`hero__cta-link ${btnContact1Classes}`}
+					href={heroCopy.ctaHref}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<span class="hero__cta-inner">
+						<span class="hero__cta-icon" set:html={featureIconSvg['arrow-right']} aria-hidden="true" />
+						<span class="hero__cta-text type-12-8 lh-22">{heroCopy.ctaLabel}</span>
+					</span>
+				</a>
+			</div>
+		</div>
+
+		<div class="hero__visual">
+			<figure class="hero__figure m-0">
+				<img
+					class="hero__img"
+					src={brandImgSm.src}
+					srcset={`${brandImgSm.src} ${heroBrandImageWidths[0]}w, ${brandImgMd.src} ${heroBrandImageWidths[1]}w, ${brandImgLg.src} ${heroBrandImageWidths[2]}w`}
+					sizes={heroBrandImageSizes}
+					width={brandDefaultWidth}
+					height={Math.round(brandDefaultWidth / brandAspect)}
+					alt={heroBrandImage.alt}
+					loading="eager"
+					decoding="async"
+					fetchpriority="high"
+				/>
+			</figure>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		padding-inline: 0;
+		box-sizing: border-box;
+	}
+
+	.hero__copy {
+		gap: 1.5rem;
+	}
+
+	.hero__title-stack {
+		gap: 0.125rem;
+	}
+
+	.hero__title-main,
+	.hero__title-sub,
+	.hero__intro {
+		display: block;
+		position: static;
+		margin: 0;
+		width: 100%;
+		max-width: 36rem;
+	}
+
+	.hero__title-main,
+	.hero__title-sub {
+		font-weight: 600;
+		line-height: 48px;
+	}
+
+	.hero__title-sub {
+		text-decoration: underline;
+		text-decoration-color: var(--color-brand-amber);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 0.2em;
+	}
+
+	.hero__intro {
+		margin-block-start: 0;
+	}
+
+	.hero__cta {
+		margin: 0;
+	}
+
+	.hero__cta-link {
+		min-height: 2.5rem;
+		padding: 0.5rem 1.25rem;
+	}
+
+	.hero__cta-inner {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+
+	.hero__cta-icon :global(svg) {
+		display: block;
+		width: 1rem;
+		height: 1rem;
+		flex-shrink: 0;
+	}
+
+	.hero__visual {
+		width: 100%;
+		margin: 0;
+		text-align: center;
+	}
+
+	.hero__figure {
+		display: inline-block;
+		max-width: 26.625rem;
+		vertical-align: middle;
+	}
+
+	.hero__img {
+		display: inline-block;
+		width: 100%;
+		height: auto;
+		vertical-align: middle;
+	}
+</style>

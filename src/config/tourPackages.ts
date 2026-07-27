@@ -1,7 +1,16 @@
+import type { ImageMetadata } from 'astro';
+
+import tourLovina from '../assets/tours/lovina.jpg';
+import tourEastBali from '../assets/tours/east-bali.jpg';
+import tourJatiluwih from '../assets/tours/jatiluwih.jpg';
+import tourKintamani from '../assets/tours/kintamani.jpg';
+import tourAnimalDay from '../assets/tours/animal-day.jpg';
+import tourSekumpul from '../assets/tours/sekumpul.jpg';
+
 export interface TourPackage {
 	id: string;
 	href: string;
-	imageUrl: string;
+	image: ImageMetadata;
 	imageAlt: string;
 	categoryLabel: string;
 	title: string;
@@ -11,13 +20,15 @@ export interface TourPackage {
 	priceNow: string;
 }
 
-/** Homepage grid — full catalog TBD. */
+/** Demo site — grid cards are display-only (no outbound tour detail URLs). */
+export const tourPackagesLinksEnabled = false;
+
+/** Homepage grid — images in `src/assets/tours/` (replace JPGs with your own shots). */
 export const tourPackagesFeatured: TourPackage[] = [
 	{
 		id: 'lovina',
 		href: 'https://tejakulataxi.com/view/lovina-tour-6-8-hours',
-		imageUrl:
-			'https://jwc.gotra-resources.my.id/web-upload/1656558226-30-06-2022-xPmWNDLVjKq2r9UHyBF1TiQ0ctdYM7lp.jpg',
+		image: tourLovina,
 		imageAlt: 'Lovina Tour',
 		categoryLabel: 'Tour & Travel',
 		title: 'Lovina Tour (6 - 8 Hours)',
@@ -29,8 +40,7 @@ export const tourPackagesFeatured: TourPackage[] = [
 	{
 		id: 'east-bali',
 		href: 'https://tejakulataxi.com/view/east-bali-tour-8-10-hours',
-		imageUrl:
-			'https://jwc.gotra-resources.my.id/web-upload/1656558090-30-06-2022-XsMPfzbeiuEa2y5IKRpcV7GdQH6ZALSt.jpg',
+		image: tourEastBali,
 		imageAlt: 'East Bali Tour',
 		categoryLabel: 'Tour & Travel',
 		title: 'East Bali Tour (8 - 10 hours)',
@@ -42,8 +52,7 @@ export const tourPackagesFeatured: TourPackage[] = [
 	{
 		id: 'jatiluwih',
 		href: 'https://tejakulataxi.com/view/jatiluwih-rice-terrace-tour-8-10-hours',
-		imageUrl:
-			'https://jwc.gotra-resources.my.id/web-upload/1656557811-30-06-2022-dOis0UNoDeg7bqIRM3Q26XtlxmwaCFG8.jpg',
+		image: tourJatiluwih,
 		imageAlt: 'Jatiluwih Rice Terrace Tour',
 		categoryLabel: 'Tour & Travel',
 		title: 'Jatiluwih Rice Terrace Tour (8 - 10 Hours)',
@@ -55,8 +64,7 @@ export const tourPackagesFeatured: TourPackage[] = [
 	{
 		id: 'kintamani',
 		href: 'https://tejakulataxi.com/view/kintamani-penglipuran-village-tour',
-		imageUrl:
-			'https://jwc.gotra-resources.my.id/web-upload/1656557682-30-06-2022-TPCsBi1v7LbWzaZmwdypeqG2nNKglYJr.jpg',
+		image: tourKintamani,
 		imageAlt: 'Kintamani Penglipuran Village tour',
 		categoryLabel: 'Tour & Travel',
 		title: 'Kintamani - Penglipuran Village tour',
@@ -68,8 +76,7 @@ export const tourPackagesFeatured: TourPackage[] = [
 	{
 		id: 'animal-day',
 		href: 'https://tejakulataxi.com/view/one-day-tour-with-animal-8-10-hours',
-		imageUrl:
-			'https://jwc.gotra-resources.my.id/web-upload/1656557605-30-06-2022-0XbxaFkDuVJYMNodwsUvyIhKAqSp2CGg.jpg',
+		image: tourAnimalDay,
 		imageAlt: 'One day tour with animal',
 		categoryLabel: 'Tour & Travel',
 		title: 'One day tour with animal (8 - 10 hours)',
@@ -81,8 +88,7 @@ export const tourPackagesFeatured: TourPackage[] = [
 	{
 		id: 'sekumpul',
 		href: 'https://tejakulataxi.com/view/sekumpul-water-fall-tour-6-8hours',
-		imageUrl:
-			'https://jwc.gotra-resources.my.id/web-upload/1656299038-27-06-2022-MwW0JUcRrPOThkGYqtLfy9XmeoBHVQzF.jpg',
+		image: tourSekumpul,
 		imageAlt: 'Sekumpul waterfall tour',
 		categoryLabel: 'Tour & Travel',
 		title: 'Sekumpul water fall tour (6 - 8hours)',

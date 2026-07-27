@@ -1,62 +1,29 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InstagramBloque from '../components/InstagramBloque.astro';
-import ContactScrollBand from '../components/ContactScrollBand.astro';
+import CarCharterSection from '../components/CarCharterSection.astro';
+import HeroSection from '../components/HeroSection.astro';
+import MarketingCreamBand from '../components/MarketingCreamBand.astro';
+import GoDiscoverSection from '../components/GoDiscoverSection.astro';
+import SplitColumnSection from '../components/SplitColumnSection.astro';
 import TourPackagesSection from '../components/TourPackagesSection.astro';
-import SectionOverHeading from '../components/SectionOverHeading.astro';
 ---
 
-<BaseLayout title="Tejaku Lataxi" activeFooterId="home">
+<BaseLayout title="Tejaku Lataxi">
 	<main>
+		<HeroSection />
+
 		<div
 			class="page-stack flex flex-col gap-8 pb-16 pt-8 md:gap-8 md:pb-16 md:pt-10 lg:gap-12 lg:pb-24 lg:pt-12 xl:gap-16 xl:pt-16"
 		>
-		<section class="section relative min-h-[85dvh] overflow-hidden bg-surface-muted">
-			<SectionOverHeading />
-			<div
-				class="layer pointer-events-none absolute inset-0 bg-linear-to-b from-brand-yellow/25 to-transparent"
-				aria-hidden="true"
-			>
-			</div>
-			<div
-				class="relative z-10 mx-auto flex max-w-3xl flex-col justify-end px-6 pb-24 pt-16"
-			>
-				<p class="type-14 lh-28 text-fg-gray-900">Scroll the page</p>
-				<p class="type-12-8 mt-2 text-fg-gray-500">
-					Scroll down — Instagram bloque is the last section and moves with the page.
-				</p>
-			</div>
-		</section>
+			<MarketingCreamBand>
+				<SplitColumnSection embedded slot="first" />
+			</MarketingCreamBand>
+			<GoDiscoverSection />
+			<TourPackagesSection />
 
-		<section class="section relative min-h-[100dvh] overflow-hidden bg-white">
-			<div
-				class="layer pointer-events-none absolute inset-0 bg-linear-to-tr from-brand-amber/15 via-transparent to-brand-green/10"
-				aria-hidden="true"
-			>
-			</div>
-			<div class="relative z-10 mx-auto max-w-3xl px-6 py-16">
-				<h2 class="type-14 lh-26 text-fg-gray-900">Section two</h2>
-				<p class="type-12-8 mt-4 text-fg-gray-600">
-					Keep scrolling — footer hides while moving, returns when you stop.
-				</p>
-			</div>
-		</section>
-
-		<section class="section relative min-h-[100dvh] overflow-hidden bg-surface-subtle">
-			<div
-				class="layer pointer-events-none absolute inset-0 bg-brand-yellow/10"
-				aria-hidden="true"
-			>
-			</div>
-			<div class="relative z-10 mx-auto max-w-3xl px-6 py-16 pb-8">
-				<h2 class="type-14 lh-26 text-fg-gray-900">Section three</h2>
-				<p class="type-12-8 mt-4 text-fg-gray-600">Booking band and Instagram below.</p>
-			</div>
-		</section>
-
-		<ContactScrollBand />
-		<TourPackagesSection />
-		<InstagramBloque />
+			<CarCharterSection />
+			<InstagramBloque />
 		</div>
 	</main>
 </BaseLayout>

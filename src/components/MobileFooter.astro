@@ -6,105 +6,207 @@ interface Props {
 	activeId?: string;
 }
 
-const { activeId = 'home' } = Astro.props;
+const { activeId } = Astro.props;
 ---
 
 <nav
-	class="scroll-footer font-sans shadow-[0_-1px_0_rgba(0,0,0,0.06)]"
+	class="scroll-footer font-sans"
 	aria-label="Mobile navigation"
 >
-	<div class="scroll-footer__grid mx-auto w-full max-w-screen-xl px-2 sm:px-4">
+	<ul class="scroll-footer__grid">
 		{
 			footerNavItems.map((item) => {
 				const isActive = item.id === activeId;
-				const linkClass = isActive
-					? 'text-fg-gray-900'
-					: 'text-fg-gray-600 hover:text-fg-gray-900';
 				const isExternal = item.href.startsWith('http');
 				return (
-					<div class="min-w-0">
+					<li class="scroll-footer__item">
 						<a
 							href={item.href}
 							class:list={[
-								'scroll-footer__link group no-underline transition-colors [-webkit-tap-highlight-color:transparent] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-amber',
-								linkClass,
+								'scroll-footer__fab group no-underline [-webkit-tap-highlight-color:transparent] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[6px] focus-visible:outline-brand-amber',
+								item.id === 'whatsapp' && 'scroll-footer__fab--whatsapp',
+								isActive && 'scroll-footer__fab--active',
 							]}
+							aria-label={item.label}
 							{...(isExternal
 								? { target: '_blank', rel: 'noopener noreferrer' }
 								: {})}
 							aria-current={isActive ? 'page' : undefined}
 						>
-							<span
-								class:list={[
-									'footer-icon-ring',
-									isActive && 'footer-icon-ring--active',
-								]}
-							>
-								<NavIcon name={item.icon} size="lg" class="footer-icon-glyph" />
-							</span>
-							<span class="footer-nav-label type-11-2 lh-22 w-full truncate">
+							<span class="scroll-footer__tooltip type-11-2 lh-22">
 								{item.label}
 							</span>
+							<NavIcon name={item.icon} size="md" class="scroll-footer__fab-icon" />
 						</a>
-					</div>
+					</li>
 				);
 			})
 		}
-	</div>
+	</ul>
 </nav>
 
 <style>
-	/* Palette: amber ring · beige fill · ink glyph (all items identical) */
-	.footer-icon-ring {
+	.scroll-footer {
+		position: fixed;
+		inset-inline: 0;
+		bottom: 0;
+		z-index: 50;
 		display: flex;
-		width: 2.5rem;
-		height: 2.5rem;
+		justify-content: center;
+		padding: 0.5rem 1rem max(0.5rem, env(safe-area-inset-bottom));
+		background: transparent;
+		pointer-events: none;
+	}
+
+	.scroll-footer__grid {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		pointer-events: auto;
+	}
+
+	.scroll-footer__item {
+		position: relative;
+		margin: calc(0.5rem * 0.95);
+	}
+
+	.scroll-footer__fab {
+		position: relative;
+		display: flex;
+		width: calc(3rem * 1.05 * 1.1);
+		height: calc(3rem * 1.05 * 1.1);
 		flex-shrink: 0;
 		align-items: center;
 		justify-content: center;
 		border-radius: 9999px;
-		border: 2px solid var(--color-brand-amber, #fdb317);
-		background: var(--color-surface-muted, #f7f7f7);
+		background-color: var(--color-white, #fff);
+		color: var(--color-fg-ink, #212529);
 		box-shadow:
-			0 0 0 1px rgba(253, 179, 23, 0.22),
-			0 1px 2px rgba(33, 37, 41, 0.06);
-	}
-
-	.footer-icon-ring--active {
-		background: rgba(253, 179, 23, 0.14);
-		box-shadow:
-			0 0 0 2px rgba(253, 179, 23, 0.38),
-			0 1px 3px rgba(33, 37, 41, 0.08);
-	}
-
-	.footer-icon-glyph {
-		color: var(--text-ink, #212529);
-	}
-
-	.group:hover .footer-icon-ring:not(.footer-icon-ring--active) {
-		background: #f5f5f5;
-		box-shadow:
-			0 0 0 1px rgba(253, 179, 23, 0.32),
-			0 1px 2px rgba(33, 37, 41, 0.08);
-	}
-
-	.footer-nav-label {
-		margin-top: 0.375rem;
-		color: inherit;
-
-	}
-
-	.scroll-footer {
+			0 10px 15px -3px rgba(33, 37, 41, 0.12),
+			0 4px 6px -4px rgba(33, 37, 41, 0.08);
+		cursor: pointer;
+		filter: blur(0);
 		opacity: 1;
 		transform: translateY(0);
 		transition:
+			transform 0.35s ease,
+			filter 0.35s ease,
 			opacity 0.35s ease,
-			transform 0.35s ease;
+			background-color 0.2s ease;
+	}
+
+	.scroll-footer__fab::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		background-color: transparent;
+		transition: background-color 0.2s ease;
+		pointer-events: none;
+	}
+
+	.scroll-footer__fab:hover,
+	.scroll-footer__fab:focus-visible {
+		background-color: var(--color-surface-muted, #f7f7f7);
+	}
+
+	.scroll-footer__fab--whatsapp:hover,
+	.scroll-footer__fab--whatsapp:focus-visible {
+		background-color: rgba(253, 179, 23, 0.18);
+	}
+
+	.scroll-footer__fab:hover::after,
+	.scroll-footer__fab:focus-visible::after {
+		background-color: rgba(33, 37, 41, 0.04);
+	}
+
+	.scroll-footer__fab--whatsapp:hover::after,
+	.scroll-footer__fab--whatsapp:focus-visible::after {
+		background-color: rgba(253, 179, 23, 0.1);
+	}
+
+	.scroll-footer__fab-icon,
+	.scroll-footer__fab :global(.nav-icon--md) {
+		position: relative;
+		z-index: 1;
+	}
+
+	.scroll-footer__fab :global(.nav-icon--md) {
+		width: calc(var(--icon-brand-size-md, 14px) * 1.05 * 1.1);
+		height: calc(var(--icon-brand-size-md, 14px) * 1.05 * 1.1);
+	}
+
+	.scroll-footer__fab--whatsapp .scroll-footer__fab-icon {
+		color: var(--color-brand-amber, #fdb317);
+	}
+
+	.scroll-footer__fab--active {
+		background: rgba(253, 179, 23, 0.12);
+	}
+
+	.scroll-footer__fab:hover,
+	.scroll-footer__fab:focus-visible {
+		transform: translateY(0) scale(1.1);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.scroll-footer__fab {
+			transition: opacity 0.35s ease, background-color 0.2s ease;
+		}
+
+		.scroll-footer__fab:hover,
+		.scroll-footer__fab:focus-visible {
+			transform: none;
+		}
+
+		.scroll-footer--hidden .scroll-footer__fab {
+			filter: none;
+		}
+	}
+
+	.scroll-footer__fab-icon {
+		color: var(--color-fg-ink, #212529);
+	}
+
+	.scroll-footer__tooltip {
+		position: absolute;
+		left: 50%;
+		top: -3rem;
+		z-index: 2;
+		transform: translateX(-50%);
+		white-space: nowrap;
+		border-radius: 0.25rem;
+		background: var(--color-fg-gray-900, #111);
+		padding: 0.25rem 0.5rem;
+		color: var(--color-fg-white, #fff);
+		box-shadow: 0 4px 6px rgba(33, 37, 41, 0.18);
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.2s ease;
+	}
+
+	.scroll-footer__fab--whatsapp .scroll-footer__tooltip {
+		background: var(--color-brand-amber, #fdb317);
+		color: var(--color-fg-ink, #212529);
+	}
+
+	.group:hover .scroll-footer__tooltip,
+	.group:focus-visible .scroll-footer__tooltip {
+		opacity: 1;
 	}
 
 	.scroll-footer--hidden {
+		pointer-events: none;
+	}
+
+	.scroll-footer--hidden .scroll-footer__fab {
+		filter: blur(8px);
 		opacity: 0;
-		transform: translateY(28px);
+		transform: translateY(14px);
 		pointer-events: none;
 	}
 

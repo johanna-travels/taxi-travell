@@ -1,7 +1,7 @@
-/** Tile display cap — local JPGs in `src/assets/instagram/` are resized at build time. */
-export const instagramTileSizes =
-	'(max-width: 639px) min(calc(100vw - 2rem), 44rem), (max-width: 767px) calc((min(100vw, 48rem) - 2rem) / 2), calc((min(100vw, 48rem) - 2rem) / 3)';
+/** Single portrait card — max width scales by breakpoint (see InstagramBloque). */
+export const instagramPortraitSizes =
+	'(max-width: 639px) min(calc(100vw - 2rem), 20rem), (max-width: 1023px) min(22rem, 88vw), 24rem';
 
 export const instagramTileQuality = 70;
-export const instagramTileWidth = 360;
-export const instagramTileWidth2x = 480;
+export const instagramTileWidth = 400;
+export const instagramTileWidth2x = 540;

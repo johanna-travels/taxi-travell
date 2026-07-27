@@ -1,24 +1,19 @@
 ---
 import TourPackageCard from './TourPackageCard.astro';
-import {
-	btnContact1Classes,
-	tourPackagesCopy,
-	tourPackagesFeatured,
-} from '../config/tourPackages.ts';
-import '../styles/animate-tour.css';
+import { tourPackagesCopy, tourPackagesFeatured } from '../config/tourPackages.ts';
 ---
 
 <section class="tour-packages section bg-white" aria-labelledby="tour-packages-heading">
 	<div class="container tour-packages__container relative z-[1]">
 		<div class="title-product text-center" data-tour-packages-intro>
-			<span class="type-11-2 lh-22 tracking-wide text-fg-amber uppercase">
+			<span class="type-11-2 lh-22 tracking-wide text-fg-gray-500 uppercase">
 				{tourPackagesCopy.kicker}
 			</span>
-			<h3 id="tour-packages-heading" class="type-14 lh-26 mt-2 text-fg-gray-900">
+			<h2 id="tour-packages-heading" class="type-section-title mt-2 text-fg-gray-900">
 				{tourPackagesCopy.heading}
-			</h3>
+			</h2>
 			<p
-				class="type-12-8 lh-24 mx-auto mt-6 max-w-3xl text-fg-gray-600 mb-12 md:mb-14 lg:mb-[4.375rem] lg:mt-8"
+				class="body-copy mx-auto mt-6 mb-12 max-w-3xl text-left text-fg-gray-500 md:mb-14 lg:mt-8 lg:mb-[4.375rem]"
 			>
 				{tourPackagesCopy.intro}
 			</p>
@@ -27,26 +22,16 @@ import '../styles/animate-tour.css';
 		<div class="row tour-packages__grid" data-tour-packages-grid>
 			{
 				tourPackagesFeatured.map((tour) => (
-					<div class="col-6 col-md-3 mb-3 tour-packages__col" data-tour-animate>
+					<div class="col-6 col-md-3 mb-3 tour-packages__col" data-animate-fade-in-up>
 						<TourPackageCard tour={tour} />
 					</div>
 				))
 			}
 		</div>
 
-		<div class="text-center mt-8 lg:mt-12">
-			<a class={btnContact1Classes} href={tourPackagesCopy.viewAllHref}>
-				{tourPackagesCopy.viewAllLabel}
-			</a>
-		</div>
+		
 	</div>
 </section>
-
-<script>
-	import { initTourAnimateCss } from '../scripts/tourAnimate';
-
-	initTourAnimateCss();
-</script>
 
 <style>
 	.tour-packages__container {

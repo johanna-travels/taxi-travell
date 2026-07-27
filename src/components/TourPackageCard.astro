@@ -1,36 +1,95 @@
 ---
+import { getImage } from 'astro:assets';
 import type { TourPackage } from '../config/tourPackages.ts';
+import { tourPackagesLinksEnabled } from '../config/tourPackages.ts';
+import {
+	tourTileQuality,
+	tourTileSizes,
+	tourTileWidth,
+	tourTileWidth2x,
+} from '../config/tourImage.ts';
 
 interface Props {
 	tour: TourPackage;
 }
 
 const { tour } = Astro.props;
+
+const imgDefault = await getImage({
+	src: tour.image,
+	width: tourTileWidth,
+	format: 'webp',
+	quality: tourTileQuality,
+});
+
+const imgRetina = await getImage({
+	src: tour.image,
+	width: tourTileWidth2x,
+	format: 'webp',
+	quality: tourTileQuality,
+});
+
+const imgWidth = imgDefault.attributes.width ?? tourTileWidth;
+const imgHeight = imgDefault.attributes.height ?? Math.round(tourTileWidth * 0.75);
 ---
 
-<a class="tour-package-card" href={tour.href}>
-	<div class="wrap-tour">
-		<img
-			class="img-fluid"
-			src={tour.imageUrl}
-			alt={tour.imageAlt}
-			width={400}
-			height={300}
-			loading="lazy"
-			decoding="async"
-		/>
-		<span class="nametag">{tour.categoryLabel}</span>
-		<div class="wrap-tour2">
-			<h3>{tour.title}</h3>
-			<span>{tour.location}</span>
-			<p>{tour.excerpt}</p>
-			<div class="pricendiskon">
-				<p class="diskon">{tour.priceWas}</p>
-				<p class="price">{tour.priceNow}</p>
+{
+	tourPackagesLinksEnabled ? (
+		<a class="tour-package-card" href={tour.href}>
+			<div class="wrap-tour">
+				<img
+					class="img-fluid"
+					src={imgDefault.src}
+					srcset={`${imgDefault.src} ${tourTileWidth}w, ${imgRetina.src} ${tourTileWidth2x}w`}
+					sizes={tourTileSizes}
+					alt={tour.imageAlt}
+					width={imgWidth}
+					height={imgHeight}
+					loading="lazy"
+					decoding="async"
+					fetchpriority="low"
+				/>
+				<span class="nametag">{tour.categoryLabel}</span>
+				<div class="wrap-tour2">
+					<h3>{tour.title}</h3>
+					<span>{tour.location}</span>
+					<p>{tour.excerpt}</p>
+					<div class="pricendiskon">
+						<p class="diskon">{tour.priceWas}</p>
+						<p class="price">{tour.priceNow}</p>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-</a>
+		</a>
+	) : (
+		<article class="tour-package-card tour-package-card--static" aria-label={tour.title}>
+			<div class="wrap-tour">
+				<img
+					class="img-fluid"
+					src={imgDefault.src}
+					srcset={`${imgDefault.src} ${tourTileWidth}w, ${imgRetina.src} ${tourTileWidth2x}w`}
+					sizes={tourTileSizes}
+					alt={tour.imageAlt}
+					width={imgWidth}
+					height={imgHeight}
+					loading="lazy"
+					decoding="async"
+					fetchpriority="low"
+				/>
+				<span class="nametag">{tour.categoryLabel}</span>
+				<div class="wrap-tour2">
+					<h3>{tour.title}</h3>
+					<span>{tour.location}</span>
+					<p>{tour.excerpt}</p>
+					<div class="pricendiskon">
+						<p class="diskon">{tour.priceWas}</p>
+						<p class="price">{tour.priceNow}</p>
+					</div>
+				</div>
+			</div>
+		</article>
+	)
+}
 
 <style>
 	.tour-package-card {
@@ -38,6 +97,10 @@ const { tour } = Astro.props;
 		height: 100%;
 		text-decoration: none;
 		color: inherit;
+	}
+
+	.tour-package-card--static {
+		cursor: default;
 	}
 
 	.wrap-tour {
@@ -92,15 +155,15 @@ const { tour } = Astro.props;
 		font-family: var(--font-family-sans);
 		font-size: var(--font-size-11-2);
 		line-height: var(--line-height-22);
-		color: var(--text-secondary);
+		color: var(--text-gray-500);
 	}
 
 	.wrap-tour2 p {
 		margin: 0.5rem 0 0;
 		font-family: var(--font-family-sans);
-		font-size: var(--font-size-11-2);
+		font-size: var(--font-size-12-8);
 		line-height: var(--line-height-22);
-		color: var(--text-gray-600);
+		color: var(--text-gray-500);
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
@@ -116,7 +179,7 @@ const { tour } = Astro.props;
 		font-family: var(--font-family-sans);
 		font-size: var(--font-size-11-2);
 		line-height: var(--line-height-22);
-		color: var(--text-muted);
+		color: var(--text-gray-500);
 		text-decoration: line-through;
 	}
 

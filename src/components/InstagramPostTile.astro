@@ -2,20 +2,20 @@
 import { getImage } from 'astro:assets';
 import type { InstagramPost } from '../config/instagramPosts.ts';
 import {
+	instagramPortraitSizes,
 	instagramTileQuality,
-	instagramTileSizes,
 	instagramTileWidth,
 	instagramTileWidth2x,
 } from '../config/instagramImage.ts';
 
 interface Props {
 	post: InstagramPost;
-	squareOnSm?: boolean;
+	/** Full-bleed media inside `.instagram-bloque__post` — no extra frame. */
+	embedded?: boolean;
 }
 
-const { post, squareOnSm = false } = Astro.props;
+const { post, embedded = false } = Astro.props;
 
-/** Build-time resize of local assets — no full-size JPG in `src`, no 640px default `src`. */
 const imgDefault = await getImage({
 	src: post.image,
 	width: instagramTileWidth,
@@ -36,29 +36,32 @@ const imgRetina = await getImage({
 	target="_blank"
 	rel="noopener noreferrer"
 	class:list={[
-		'instagram-bloque__tile group relative block w-full overflow-hidden rounded-lg border-2 border-brand-amber/35 bg-surface-muted no-underline shadow-sm transition-[border-color,box-shadow] hover:border-brand-amber hover:shadow-md',
-		squareOnSm ? 'aspect-[4/5] sm:aspect-square' : 'aspect-[4/5]',
+		'instagram-bloque__tile group relative block w-full overflow-hidden bg-black no-underline',
+		embedded && 'instagram-bloque__tile--embedded',
+		!embedded && 'instagram-bloque__tile--standalone mx-auto max-w-full rounded-md',
 	]}
 >
 	<img
 		src={imgDefault.src}
 		srcset={`${imgDefault.src} ${instagramTileWidth}w, ${imgRetina.src} ${instagramTileWidth2x}w`}
-		sizes={instagramTileSizes}
+		sizes={instagramPortraitSizes}
 		alt={post.alt}
 		width={imgDefault.attributes.width}
 		height={imgDefault.attributes.height}
-		class="h-full w-full max-w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+		class="aspect-[4/5] h-auto w-full object-cover transition-transform duration-300 group-hover:scale-[1.01]"
 		loading="lazy"
 		decoding="async"
 		fetchpriority="low"
 	/>
-	<span
-		class="pointer-events-none absolute inset-0 bg-linear-to-t from-fg-gray-900/45 via-transparent to-transparent opacity-80"
-		aria-hidden="true"
-	></span>
-	<span
-		class="type-11-2 lh-22 pointer-events-none absolute inset-x-0 bottom-0 px-2 pb-2 text-fg-white"
-	>
-		View on Instagram
-	</span>
 </a>
+
+<style>
+	.instagram-bloque__tile--embedded {
+		border-radius: 0;
+	}
+
+	.instagram-bloque__tile--standalone {
+		border: 1px solid var(--color-surface-subtle, #e8e8e8);
+		box-shadow: 0 0 0 1px rgba(33, 37, 41, 0.06);
+	}
+</style>

@@ -9,8 +9,12 @@ const columns = [
 ];
 ---
 
-<footer class="site-footer relative z-[1] border-t border-surface-subtle bg-surface-muted pt-16 lg:pt-20">
+<footer
+	class="site-footer relative z-[1] border-t border-surface-subtle bg-surface-muted pt-16 lg:pt-20"
+	aria-labelledby="site-footer-heading"
+>
 	<div class="container site-footer__main pb-[calc(4.75rem+env(safe-area-inset-bottom))] pt-4 lg:pb-12 lg:pt-6">
+		<h2 id="site-footer-heading" class="sr-only">Site information</h2>
 		<div class="row">
 			{
 				columns.map((col) => (
@@ -21,7 +25,7 @@ const columns = [
 								<li>
 									<a
 										href={item.href}
-										class="type-12-8 lh-22 text-fg-gray-600 no-underline transition-colors hover:text-fg-gray-900"
+										class="type-12-8 lh-22 text-fg-gray-500 no-underline transition-colors hover:text-fg-gray-900"
 										{...(item.href.startsWith('http')
 											? { target: '_blank', rel: 'noopener noreferrer' }
 											: {})}
@@ -35,7 +39,7 @@ const columns = [
 				))
 			}
 		</div>
-		<p class="type-11-2 lh-22 mt-10 border-t border-surface-subtle pt-6 text-center text-fg-secondary">
+		<p class="type-11-2 lh-22 mt-10 border-t border-surface-subtle pt-6 text-center text-fg-gray-500">
 			© {new Date().getFullYear()} Tejaku Lataxi · Bali personal transport
 		</p>
 	</div>

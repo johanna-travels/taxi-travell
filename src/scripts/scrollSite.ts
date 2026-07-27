@@ -89,7 +89,9 @@ function initSectionOverHeadings(gsap: (typeof import('gsap'))['gsap']): void {
 	};
 
 	roots.forEach((root) => {
-		const words = root.querySelectorAll<HTMLElement>('.section-over-heading__word');
+		const words = root.querySelectorAll<HTMLElement>(
+			'.section-over-heading__word, [data-hero-phrase], .hero__title-main, .hero__title-sub',
+		);
 		if (!words.length) return;
 
 		const section = root.closest<HTMLElement>('.section') ?? root;
@@ -116,57 +118,13 @@ function initSectionOverHeadings(gsap: (typeof import('gsap'))['gsap']): void {
 	});
 }
 
-/** Scoped to `[data-instagram-bloque-title]` — never global `.text`. */
-const INSTAGRAM_TITLE_DURATION = 0.85; // 15% less than 1s
-
-function initInstagramBloqueTitles(gsap: (typeof import('gsap'))['gsap']): void {
-	document.querySelectorAll<HTMLElement>('[data-instagram-bloque-title]').forEach((el) => {
-		const group = el.closest<HTMLElement>('.instagram-bloque-group');
-		const bloque =
-			group?.querySelector<HTMLElement>('.instagram-bloque') ??
-			el.closest<HTMLElement>('.instagram-bloque');
-		const trigger = group ?? bloque;
-		if (!trigger) return;
-
-		gsap.from(el, {
-			x: -200,
-			opacity: 0,
-			duration: INSTAGRAM_TITLE_DURATION,
-			ease: 'power2.out',
-			clearProps: 'transform,opacity',
-			scrollTrigger: {
-				trigger,
-				start: 'top 88%',
-				once: true,
-			},
-		});
-	});
-}
-
-function initParallaxLayers(
-	gsap: (typeof import('gsap'))['gsap'],
-	ScrollTrigger: (typeof import('gsap/ScrollTrigger'))['ScrollTrigger'],
-): void {
-	document.querySelectorAll<HTMLElement>('.section').forEach((section) => {
-		const layer = section.querySelector<HTMLElement>('.layer');
-		if (!layer) return;
-		gsap.to(layer, {
-			yPercent: -50,
-			ease: 'none',
-			scrollTrigger: { trigger: section, scrub: true },
-		});
-	});
-}
-
 async function initGsapEnhancements(): Promise<void> {
 	if (prefersReducedMotion() || isSlowNetwork()) return;
 
 	try {
 		const { gsap, ScrollTrigger } = await loadGsapBundle();
 		gsap.registerPlugin(ScrollTrigger);
-		initParallaxLayers(gsap, ScrollTrigger);
 		initSectionOverHeadings(gsap);
-		initInstagramBloqueTitles(gsap);
 	} catch {
 		// 3G / timeout — no GSAP; heading + footer stay CSS-only.
 	}
@@ -175,13 +133,13 @@ async function initGsapEnhancements(): Promise<void> {
 export function scheduleScrollSiteInit(): void {
 	initFooterScroll();
 
-	const runParallax = () => {
+	const runGsap = () => {
 		void initGsapEnhancements();
 	};
 
 	if ('requestIdleCallback' in window) {
-		requestIdleCallback(runParallax, { timeout: 4000 });
+		requestIdleCallback(runGsap, { timeout: 4000 });
 	} else {
-		setTimeout(runParallax, 500);
+		setTimeout(runGsap, 500);
 	}
 }

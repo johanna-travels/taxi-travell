@@ -1,0 +1,47 @@
+---
+/** Cream band: 60px vertical padding, 767px centered content stack. */
+const hasSecond = Astro.slots.has('second');
+---
+
+<section class="marketing-cream-band section py-15" aria-label="Why work with us">
+	<div class="marketing-cream-band__inner mx-auto flex w-full max-w-[767px] flex-col">
+		<div
+			class:list={[
+				'marketing-cream-band__block',
+				hasSecond && 'marketing-cream-band__block--first',
+			]}
+		>
+			<slot name="first" />
+		</div>
+		{
+			hasSecond && (
+				<div class="marketing-cream-band__block">
+					<slot name="second" />
+				</div>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.marketing-cream-band {
+		background-color: var(--color-surface-cream);
+		padding-inline: 0;
+		box-sizing: border-box;
+	}
+
+	.marketing-cream-band__inner {
+		padding-inline: 1rem;
+		box-sizing: border-box;
+	}
+
+	@media (min-width: 768px) {
+		.marketing-cream-band__inner {
+			padding-inline: 1.5rem;
+		}
+	}
+
+	.marketing-cream-band__block--first {
+		padding-bottom: 3.75rem;
+	}
+</style>

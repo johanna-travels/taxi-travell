@@ -1,0 +1,81 @@
+---
+import {
+	buildCarCharterWhatsAppHref,
+	carCharterCopy,
+	carCharterPlanBtnOutlineClasses,
+	carCharterPlanBtnPrimaryClasses,
+	type CarCharterPlan,
+} from '../config/carCharter.ts';
+
+interface Props {
+	plan: CarCharterPlan;
+}
+
+const { plan } = Astro.props;
+const waHref = buildCarCharterWhatsAppHref(plan.title);
+const planTitleClasses = 'type-14 lh-26 m-0 text-fg-gray-900';
+const planPriceClasses = 'price type-14 lh-26 text-fg-gray-900';
+const planPriceUnitClasses = 'price-unit type-12-8 text-fg-gray-900';
+const planPriceLabelClasses =
+	'price-label type-12-8 lh-22 mt-1 block uppercase tracking-wide text-fg-gray-500';
+const planFeatureListClasses = 'type-12-8 lh-22 m-0 list-none space-y-2 p-0 text-fg-gray-500';
+---
+
+<div class:list={['plan h-full', plan.featured && 'plan-featured']}>
+	<div
+		class:list={[
+			'plan-header flex min-h-[3.25rem] items-center justify-center rounded-t-lg px-4 py-3 text-center',
+			plan.featured ? 'bg-brand-amber' : 'border-b border-surface-subtle bg-surface-muted',
+		]}
+	>
+		<h3 class={planTitleClasses}>{plan.title}</h3>
+	</div>
+	<div class="plan-price border-x border-surface-subtle bg-white px-4 py-5 text-center">
+		<span class={planPriceClasses}>
+			<span class={planPriceUnitClasses}>IDR</span>
+			{plan.amount}
+		</span>
+		<span class={planPriceLabelClasses}>{carCharterCopy.priceLabel}</span>
+	</div>
+	<div class="plan-features border-x border-surface-subtle bg-white px-4 py-4">
+		<ul class={planFeatureListClasses}>
+			{plan.features.map((line) => <li>{line}</li>)}
+		</ul>
+	</div>
+	<div
+		class="plan-footer flex min-h-[4.75rem] items-center justify-center rounded-b-lg border border-surface-subtle bg-white px-4 py-4"
+	>
+		<a
+			class={plan.featured ? carCharterPlanBtnPrimaryClasses : carCharterPlanBtnOutlineClasses}
+			href={waHref}
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			{carCharterCopy.bookLabel}
+		</a>
+	</div>
+</div>
+
+<style>
+	.plan {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		border-radius: 0.5rem;
+		box-shadow: 0 0 4px rgba(33, 37, 41, 0.12);
+		overflow: hidden;
+	}
+
+	.plan-featured {
+		box-shadow: 0 0 0 2px var(--color-brand-amber), 0 4px 12px rgba(33, 37, 41, 0.12);
+	}
+
+	.plan-features {
+		flex: 1;
+	}
+
+	.price-unit {
+		margin-inline-end: 0.25rem;
+	}
+</style>

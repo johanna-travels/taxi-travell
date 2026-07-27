@@ -1,8 +1,0 @@
-/** Tour cards only — subset of animate.css (fadeInUp + base). */
-@import "animate.css/source/_vars.css";
-@import "animate.css/source/_base.css";
-@import "animate.css/source/fading_entrances/fadeInUp.css";
-
-.tour-packages__col[data-tour-animate].animated {
-	--animate-duration: 1.7s;
-}

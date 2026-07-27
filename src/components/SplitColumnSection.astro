@@ -1,0 +1,69 @@
+---
+import SplitIconFeatureBox from './SplitIconFeatureBox.astro';
+import { splitSectionCopy } from '../config/splitSection.ts';
+
+interface Props {
+	/** Renders inside {@link MarketingCreamBand} — no outer section or white band padding. */
+	embedded?: boolean;
+}
+
+const { embedded = false } = Astro.props;
+const Root = embedded ? 'div' : 'section';
+---
+
+<Root
+	class:list={[
+		'split-section w-full',
+		!embedded && 'split-section section bg-white py-12 md:py-12 lg:py-16',
+		embedded && 'split-section--embedded',
+	]}
+	aria-label="Why work with us"
+>
+	<div
+		class:list={[
+			'split-section__container relative z-[1] mx-auto',
+			!embedded && 'container',
+			embedded && 'split-section__container--embedded',
+		]}
+	>
+		<div class="split-section__grid row flex flex-col gap-8">
+			<div class="split-section__col split-section__col--features col-md-12 min-w-0">
+				<div class="flex flex-col gap-8">
+					{
+						splitSectionCopy.features.map((feature) => (
+							<SplitIconFeatureBox feature={feature} />
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</Root>
+
+<style>
+	.split-section__container {
+		max-width: 1240px;
+		padding-inline: 1rem;
+	}
+
+	.split-section__container--embedded {
+		max-width: none;
+		padding-inline: 0;
+	}
+
+	@media (min-width: 768px) {
+		.split-section__container {
+			padding-inline: 1.5rem;
+		}
+	}
+
+	.split-section__grid {
+		margin-inline: -0.75rem;
+	}
+
+	.split-section__col {
+		box-sizing: border-box;
+		padding-inline: 0.75rem;
+		width: 100%;
+	}
+</style>

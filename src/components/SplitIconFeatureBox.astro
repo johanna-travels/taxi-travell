@@ -1,0 +1,22 @@
+---
+import type { SplitIconFeature } from '../config/splitSection.ts';
+import FeatureIcon from './FeatureIcon.astro';
+
+interface Props {
+	feature: SplitIconFeature;
+}
+
+const { feature } = Astro.props;
+---
+
+<article
+	class="icon-feature-box flex gap-4 text-left"
+	data-animate-fade-in-up
+	data-animate-delay="300"
+>
+	<FeatureIcon name={feature.icon} />
+	<div class="icon-feature-box__content min-w-0">
+		<h3 class="type-14 lh-26 text-fg-gray-900">{feature.title}</h3>
+		<p class="body-copy mt-2 text-fg-gray-500">{feature.description}</p>
+	</div>
+</article>

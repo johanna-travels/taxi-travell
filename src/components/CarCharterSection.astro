@@ -1,0 +1,50 @@
+---
+import CarCharterPlanCard from './CarCharterPlanCard.astro';
+import { carCharterCopy, carCharterPlans } from '../config/carCharter.ts';
+---
+
+<section class="car-charter-section section py-12 md:py-12" aria-labelledby="car-charter-heading">
+	<div class="container car-charter-section__container relative z-[1]">
+		<div class="title-product text-center" data-animate-fade-in-up>
+			<span class="type-kicker-featured text-fg-gray-900">
+				{carCharterCopy.kicker}
+			</span>
+			<h2 id="car-charter-heading" class="type-section-title mt-2 text-fg-gray-900">
+				{carCharterCopy.heading}
+			</h2>
+			<p
+				class="body-copy mx-auto mt-6 mb-12 max-w-3xl text-left text-fg-gray-500 md:mb-14 lg:mt-8 lg:mb-[4.375rem]"
+			>
+				{carCharterCopy.intro}
+			</p>
+		</div>
+
+		<div class="pricing-table pricing-table-no-gap row my-5 justify-center">
+			{
+				carCharterPlans.map((plan) => (
+					<div class="col-md-4 mb-4 flex md:mb-0">
+						<CarCharterPlanCard plan={plan} />
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.car-charter-section {
+		background: var(--color-white);
+	}
+
+	.car-charter-section__container {
+		max-width: 1240px;
+	}
+
+	.type-kicker-featured {
+		display: block;
+	}
+
+	.pricing-table-no-gap.row {
+		align-items: stretch;
+	}
+</style>
