@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# Netlify local CLI state (not site cache — purge cache in Netlify UI)
+.netlify/
+
 # macOS-specific files
 .DS_Store
 
