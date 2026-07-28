@@ -21,6 +21,7 @@ export default defineConfig({
 		build: {
 			cssMinify: true,
 			target: 'es2020',
+			sourcemap: false,
 		},
 	},
 });
