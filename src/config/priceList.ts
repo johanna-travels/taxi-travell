@@ -1,5 +1,5 @@
 import { footerNavItems } from './footerNav.ts';
-import { siteBrandIntroTail } from './siteBrand.ts';
+import { siteBrandIntroTail, siteWhatsAppGreeting } from './siteBrand.ts';
 
 const whatsapp = footerNavItems.find((item) => item.id === 'whatsapp');
 
@@ -27,7 +27,7 @@ export const priceListCopy = {
 
 /** Legacy WhatsApp prefill (keeps “Tranfer” wording from live site). */
 export function buildTransferWhatsAppHref(transferIn: string, transferOut: string): string {
-	const text = `Halo Admin travel-safe, saya ingin booking Airport Tranfer dari ${transferIn} ke ${transferOut}.\r\nApakah bisa dibantu?`;
+	const text = `${siteWhatsAppGreeting()}, saya ingin booking Airport Tranfer dari ${transferIn} ke ${transferOut}.\r\nApakah bisa dibantu?`;
 	return `https://api.whatsapp.com/send?phone=${priceListWhatsAppPhone}&text=${encodeURIComponent(text)}`;
 }
 

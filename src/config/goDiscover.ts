@@ -1,5 +1,6 @@
 import type { ImageMetadata } from 'astro';
 import post1 from '../assets/instagram/post-1.jpg';
+import { siteName, siteWhatsAppGreeting } from './siteBrand.ts';
 import { priceListWhatsAppPhone } from './priceList.ts';
 
 export interface GoDiscoverImage {
@@ -18,13 +19,13 @@ export const goDiscoverCopy = {
 } as const;
 
 export const goDiscoverCtaHref = `https://wa.me/${priceListWhatsAppPhone}?text=${encodeURIComponent(
-	'Halo Admin travel-safe, saya ingin booking mobil untuk tour di Bali.\r\nApakah bisa dibantu?',
+	`${siteWhatsAppGreeting()}, saya ingin booking mobil untuk tour di Bali.\r\nApakah bisa dibantu?`,
 )}`;
 
 /** Hero tile — replace with `src/assets/discover/*` when brand photo is ready. */
 export const goDiscoverImage: GoDiscoverImage = {
 	src: post1,
-	alt: 'travel-safe car on a Bali road',
+	alt: `${siteName} car on a Bali road`,
 	width: 960,
 	height: 720,
 };

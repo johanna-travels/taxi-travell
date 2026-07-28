@@ -1,5 +1,5 @@
 import { priceListWhatsAppPhone } from './priceList.ts';
-import { siteBrandIntroTail } from './siteBrand.ts';
+import { siteBrandIntroTail, siteWhatsAppGreeting } from './siteBrand.ts';
 
 export interface CarCharterPlan {
 	id: string;
@@ -68,6 +68,6 @@ export const carCharterPlans: CarCharterPlan[] = [
 ];
 
 export function buildCarCharterWhatsAppHref(planTitle: string): string {
-	const text = `Halo Admin travel-safe, saya ingin booking ${planTitle} (Car Charter).\r\nApakah bisa dibantu?`;
+	const text = `${siteWhatsAppGreeting()}, saya ingin booking ${planTitle} (Car Charter).\r\nApakah bisa dibantu?`;
 	return `https://wa.me/${priceListWhatsAppPhone}?text=${encodeURIComponent(text)}`;
 }
