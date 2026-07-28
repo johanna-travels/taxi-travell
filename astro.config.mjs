@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://johanna-travels.github.io',
+	base: '/taxi-travell',
 	compressHTML: true,
 	build: {
 		inlineStylesheets: 'auto',
