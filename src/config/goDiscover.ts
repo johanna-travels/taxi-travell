@@ -18,13 +18,13 @@ export const goDiscoverCopy = {
 } as const;
 
 export const goDiscoverCtaHref = `https://wa.me/${priceListWhatsAppPhone}?text=${encodeURIComponent(
-	'Halo Admin Tejakula Taxi, saya ingin booking mobil untuk tour di Bali.\r\nApakah bisa dibantu?',
+	'Halo Admin travel-safe, saya ingin booking mobil untuk tour di Bali.\r\nApakah bisa dibantu?',
 )}`;
 
 /** Hero tile — replace with `src/assets/discover/*` when brand photo is ready. */
 export const goDiscoverImage: GoDiscoverImage = {
 	src: post1,
-	alt: 'Tejakula Taxi car on a Bali road',
+	alt: 'travel-safe car on a Bali road',
 	width: 960,
 	height: 720,
 };

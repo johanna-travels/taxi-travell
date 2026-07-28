@@ -83,7 +83,7 @@ const { activeId } = Astro.props;
 		align-items: center;
 		justify-content: center;
 		border-radius: 9999px;
-		background-color: var(--color-white, #fff);
+		background-color: var(--color-brand-yellow, #ffe10a);
 		color: var(--color-fg-ink, #212529);
 		box-shadow:
 			0 10px 15px -3px rgba(33, 37, 41, 0.12),
@@ -111,22 +111,22 @@ const { activeId } = Astro.props;
 
 	.scroll-footer__fab:hover,
 	.scroll-footer__fab:focus-visible {
-		background-color: var(--color-surface-muted, #f7f7f7);
+		background-color: var(--color-white, #fff);
 	}
 
 	.scroll-footer__fab--whatsapp:hover,
 	.scroll-footer__fab--whatsapp:focus-visible {
-		background-color: rgba(253, 179, 23, 0.18);
+		background-color: var(--color-white, #fff);
 	}
 
 	.scroll-footer__fab:hover::after,
 	.scroll-footer__fab:focus-visible::after {
-		background-color: rgba(33, 37, 41, 0.04);
+		background-color: transparent;
 	}
 
 	.scroll-footer__fab--whatsapp:hover::after,
 	.scroll-footer__fab--whatsapp:focus-visible::after {
-		background-color: rgba(253, 179, 23, 0.1);
+		background-color: transparent;
 	}
 
 	.scroll-footer__fab-icon,
@@ -141,11 +141,11 @@ const { activeId } = Astro.props;
 	}
 
 	.scroll-footer__fab--whatsapp .scroll-footer__fab-icon {
-		color: var(--color-brand-amber, #fdb317);
+		color: var(--color-fg-ink, #212529);
 	}
 
 	.scroll-footer__fab--active {
-		background: rgba(253, 179, 23, 0.12);
+		background: var(--color-brand-yellow, #ffe10a);
 	}
 
 	.scroll-footer__fab:hover,

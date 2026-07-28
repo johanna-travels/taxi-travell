@@ -1,5 +1,6 @@
 ---
 import TourPackageCard from './TourPackageCard.astro';
+import BrandIntroParagraph from './BrandIntroParagraph.astro';
 import { tourPackagesCopy, tourPackagesFeatured } from '../config/tourPackages.ts';
 ---
 
@@ -12,11 +13,10 @@ import { tourPackagesCopy, tourPackagesFeatured } from '../config/tourPackages.t
 			<h2 id="tour-packages-heading" class="type-section-title mt-2 text-fg-gray-900">
 				{tourPackagesCopy.heading}
 			</h2>
-			<p
+			<BrandIntroParagraph
+				tail={tourPackagesCopy.introTail}
 				class="body-copy mx-auto mt-6 mb-12 max-w-3xl text-left text-fg-gray-500 md:mb-14 lg:mt-8 lg:mb-[4.375rem]"
-			>
-				{tourPackagesCopy.intro}
-			</p>
+			/>
 		</div>
 
 		<div class="row tour-packages__grid" data-tour-packages-grid>

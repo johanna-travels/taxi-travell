@@ -1,0 +1,25 @@
+# Astro → GitHub Pages (repo: johanna-travels/taxi-travell)
+# Workflow file: .github/workflows/deploy.yml
+# Live URL: https://johanna-travels.github.io/taxi-travell/
+
+# --- Every deploy (from project folder) ---
+
+cd /Users/johanna/Desktop/Taxi-driver-page
+
+npm run build
+
+git add -A
+git status
+git commit -m "Update site."    # skip if nothing to commit
+
+git push origin main            # triggers "Deploy to GitHub Pages" on push
+
+# --- Or: run workflow without a new commit (needs: brew install gh && gh auth login) ---
+
+gh workflow run "Deploy to GitHub Pages" --ref main
+gh run list --workflow=deploy.yml --limit 1
+gh run watch                    # wait until finished (Ctrl+C to detach)
+
+# --- Check latest run ---
+
+gh run list --workflow=deploy.yml --limit 5

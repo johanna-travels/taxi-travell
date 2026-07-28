@@ -13,7 +13,7 @@ export const heroCopy = {
 		'Travel around Bali in a new car with your personal, English speaking driver. Get 10 hours daily service, fuel and unlimited mileage to go just anywhere you want!',
 	ctaLabel: 'Book Your Car Now',
 	ctaHref: `https://wa.me/${priceListWhatsAppPhone}?text=${encodeURIComponent(
-		'Halo Admin Tejakula Taxi, saya ingin booking mobil untuk tour di Bali.\r\nApakah bisa dibantu?',
+		'Halo Admin travel-safe, saya ingin booking mobil untuk tour di Bali.\r\nApakah bisa dibantu?',
 	)}`,
 } as const;
 
@@ -32,7 +32,7 @@ export const heroBrandImage: {
 	height: number;
 } = {
 	src: brandMark,
-	alt: 'Tejakula Taxi',
+	alt: 'travel-safe',
 	width: 1419,
 	height: 2163,
 };

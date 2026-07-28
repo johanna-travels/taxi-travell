@@ -1,4 +1,5 @@
 import { footerNavItems } from './footerNav.ts';
+import { siteBrandIntroTail } from './siteBrand.ts';
 
 const whatsapp = footerNavItems.find((item) => item.id === 'whatsapp');
 
@@ -20,14 +21,13 @@ export interface TransferPriceRow {
 export const priceListCopy = {
 	kicker: 'Your Personal Bali Taxi Driver',
 	heading: 'Transfer Pricelist',
-	intro:
-		'Tejakula Taxi is a place that serves car and taxi rentals. We are here to provide accommodation according to your needs. If you want to travel from one place to another, we recommend choosing a taxi service, because it is more efficient, easy',
+	introTail: siteBrandIntroTail,
 	bookLabel: 'Book Now',
 } as const;
 
 /** Legacy WhatsApp prefill (keeps “Tranfer” wording from live site). */
 export function buildTransferWhatsAppHref(transferIn: string, transferOut: string): string {
-	const text = `Halo Admin Tejakula Taxi, saya ingin booking Airport Tranfer dari ${transferIn} ke ${transferOut}.\r\nApakah bisa dibantu?`;
+	const text = `Halo Admin travel-safe, saya ingin booking Airport Tranfer dari ${transferIn} ke ${transferOut}.\r\nApakah bisa dibantu?`;
 	return `https://api.whatsapp.com/send?phone=${priceListWhatsAppPhone}&text=${encodeURIComponent(text)}`;
 }
 

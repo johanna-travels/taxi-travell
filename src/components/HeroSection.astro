@@ -1,5 +1,5 @@
 ---
-import { getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import {
 	heroBrandImage,
 	heroBrandImageQuality,
@@ -12,18 +12,6 @@ import {
 import { btnContact1Classes } from '../config/tourPackages.ts';
 import { featureIconSvg } from '../icons/feature.ts';
 
-const brandImages = await Promise.all(
-	heroBrandImageWidths.map((width) =>
-		getImage({
-			src: heroBrandImage.src,
-			width,
-			format: 'webp',
-			quality: heroBrandImageQuality,
-		}),
-	),
-);
-
-const [brandImgSm, brandImgMd, brandImgLg] = brandImages;
 const brandAspect = heroBrandImage.width / heroBrandImage.height;
 const brandDefaultWidth = heroBrandImageWidths[0];
 ---
@@ -44,7 +32,7 @@ const brandDefaultWidth = heroBrandImageWidths[0];
 				class="hero__title-stack flex w-full flex-col items-center py-[6px] text-center"
 				data-section-over-heading
 			>
-				<h1 id="hero-heading" class="hero__title-main type-hero-title text-fg-gray-800">
+				<h1 id="hero-heading" class="hero__title-main type-hero-title text-fg-black">
 					{heroHeadline.title}
 				</h1>
 				<h2 class="hero__title-sub type-hero-title text-fg-gray-900">{heroHeadline.subtitle}</h2>
@@ -69,14 +57,16 @@ const brandDefaultWidth = heroBrandImageWidths[0];
 
 		<div class="hero__visual">
 			<figure class="hero__figure m-0">
-				<img
+				<Image
 					class="hero__img"
-					src={brandImgSm.src}
-					srcset={`${brandImgSm.src} ${heroBrandImageWidths[0]}w, ${brandImgMd.src} ${heroBrandImageWidths[1]}w, ${brandImgLg.src} ${heroBrandImageWidths[2]}w`}
+					src={heroBrandImage.src}
+					alt={heroBrandImage.alt}
+					widths={[...heroBrandImageWidths]}
 					sizes={heroBrandImageSizes}
+					format="webp"
+					quality={heroBrandImageQuality}
 					width={brandDefaultWidth}
 					height={Math.round(brandDefaultWidth / brandAspect)}
-					alt={heroBrandImage.alt}
 					loading="eager"
 					decoding="async"
 					fetchpriority="high"

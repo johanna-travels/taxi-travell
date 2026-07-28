@@ -1,5 +1,5 @@
 ---
-import { getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import type { GoDiscoverImage } from '../config/goDiscover.ts';
 import {
 	goDiscoverImageQuality,
@@ -14,32 +14,21 @@ interface Props {
 
 const { image, loading = 'lazy' } = Astro.props;
 
-const imgDefault = await getImage({
-	src: image.src,
-	width: goDiscoverImageWidths.default,
-	format: 'webp',
-	quality: goDiscoverImageQuality,
-});
-
-const imgRetina = await getImage({
-	src: image.src,
-	width: goDiscoverImageWidths.retina,
-	format: 'webp',
-	quality: goDiscoverImageQuality,
-});
-
 const aspect = image.width / image.height;
+const defaultWidth = goDiscoverImageWidths.default;
 ---
 
 <figure class="go-discover-section__figure m-0 overflow-hidden rounded-lg bg-surface-muted">
-	<img
+	<Image
 		class="go-discover-section__img block h-auto w-full object-cover"
-		src={imgDefault.src}
-		srcset={`${imgDefault.src} ${goDiscoverImageWidths.default}w, ${imgRetina.src} ${goDiscoverImageWidths.retina}w`}
-		sizes={goDiscoverImageSizes}
-		width={goDiscoverImageWidths.default}
-		height={Math.round(goDiscoverImageWidths.default / aspect)}
+		src={image.src}
 		alt={image.alt}
+		widths={[goDiscoverImageWidths.default, goDiscoverImageWidths.retina]}
+		sizes={goDiscoverImageSizes}
+		format="webp"
+		quality={goDiscoverImageQuality}
+		width={defaultWidth}
+		height={Math.round(defaultWidth / aspect)}
 		loading={loading}
 		decoding="async"
 	/>

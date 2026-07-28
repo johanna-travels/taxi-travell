@@ -1,4 +1,4 @@
-/** animate.css entrances (fadeInUp / fadeInDown) — no GSAP. Safe to call from multiple islands. */
+/** animate.css entrances (fadeInUp / fadeInDown / slideInLeft) — no GSAP. */
 let entranceObserver: IntersectionObserver | null = null;
 
 function getEntranceObserver(): IntersectionObserver {
@@ -10,7 +10,9 @@ function getEntranceObserver(): IntersectionObserver {
 				if (!entry.isIntersecting) continue;
 				const el = entry.target as HTMLElement;
 				const down = el.hasAttribute('data-animate-fade-in-down');
-				el.classList.add('animated', down ? 'fadeInDown' : 'fadeInUp');
+				const slideLeft = el.hasAttribute('data-animate-slide-in-left');
+				const animClass = slideLeft ? 'slideInLeft' : down ? 'fadeInDown' : 'fadeInUp';
+				el.classList.add('animated', animClass);
 				const delay = el.dataset.animateDelay;
 				if (delay) el.style.animationDelay = `${delay}ms`;
 				el.dataset.entranceAnimateDone = 'true';
@@ -29,7 +31,9 @@ export function initAnimateEntrances(): void {
 
 	const observer = getEntranceObserver();
 	document
-		.querySelectorAll<HTMLElement>('[data-animate-fade-in-up], [data-animate-fade-in-down]')
+		.querySelectorAll<HTMLElement>(
+			'[data-animate-fade-in-up], [data-animate-fade-in-down], [data-animate-slide-in-left]',
+		)
 		.forEach((el) => {
 			if (el.dataset.entranceAnimateDone === 'true') return;
 			observer.observe(el);

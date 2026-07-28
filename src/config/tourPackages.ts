@@ -6,6 +6,7 @@ import tourJatiluwih from '../assets/tours/jatiluwih.jpg';
 import tourKintamani from '../assets/tours/kintamani.jpg';
 import tourAnimalDay from '../assets/tours/animal-day.jpg';
 import tourSekumpul from '../assets/tours/sekumpul.jpg';
+import { siteBrandIntroTail } from './siteBrand.ts';
 
 export interface TourPackage {
 	id: string;
@@ -102,8 +103,7 @@ export const tourPackagesFeatured: TourPackage[] = [
 export const tourPackagesCopy = {
 	kicker: 'Your Personal Bali Taxi Driver',
 	heading: 'Tour Packages',
-	intro:
-		'Tejakula Taxi is a place that serves car and taxi rentals. We are here to provide accommodation according to your needs. If you want to travel from one place to another, we recommend choosing a taxi service, because it is more efficient, easy',
+	introTail: siteBrandIntroTail,
 	viewAllHref: 'https://tejakulataxi.com/category/tour-packages',
 	viewAllLabel: 'View All Tour',
 } as const;

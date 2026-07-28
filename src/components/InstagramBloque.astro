@@ -4,6 +4,7 @@ import InstagramPostTile from './InstagramPostTile.astro';
 import {
 	instagramPosts,
 	instagramProfileUrl,
+	instagramSectionKicker,
 } from '../config/instagramPosts.ts';
 
 const handle = '@bali_personal_transport_taxi';
@@ -16,6 +17,27 @@ const featuredPost = instagramPosts[0];
 	aria-labelledby="instagram-bloque-title"
 >
 	<div class="instagram-bloque__shell mx-auto w-full px-4 py-5 sm:py-6">
+		<header class="instagram-bloque__section-head mb-3" data-animate-slide-in-left>
+			<h2 id="instagram-bloque-title" class="sr-only">{instagramSectionKicker}</h2>
+			<a
+				href={instagramProfileUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group inline-flex items-center gap-1.5 font-semibold text-brand-amber no-underline transition-transform hover:opacity-90 active:scale-95 touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-amber"
+				aria-labelledby="instagram-bloque-title"
+			>
+				<span class="instagram-bloque__spawn-label pb-2 text-black tracking-wide sm:text-sm">
+					{instagramSectionKicker}
+				</span>
+				<span
+					class="instagram-bloque__spawn-arrow translate-y-[-1px] text-xl leading-none transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5 sm:text-base"
+					aria-hidden="true"
+				>
+					↘︎
+				</span>
+			</a>
+		</header>
+
 		<article class="instagram-bloque__post overflow-hidden rounded-lg border border-brand-amber/35 bg-white shadow-sm">
 			<header
 				class="instagram-bloque__post-head flex items-center justify-between gap-3 border-b border-surface-subtle bg-white px-3 py-2.5"
@@ -28,10 +50,7 @@ const featuredPost = instagramPosts[0];
 						<NavIcon name="instagram" size="md" class="footer-icon-glyph" />
 					</span>
 					<div class="min-w-0 leading-none">
-						<h3
-							id="instagram-bloque-title"
-							class="type-14 lh-22 truncate text-fg-gray-900"
-						>
+						<h3 class="type-14 lh-22 truncate text-fg-gray-900">
 							{username}
 						</h3>
 						<p class="type-11-2 lh-22 truncate text-fg-gray-500">{handle}</p>

@@ -1,54 +1,14 @@
 ---
-import { siteFooterColumns } from '../config/siteFooter.ts';
-
-const columns = [
-	siteFooterColumns.links,
-	siteFooterColumns.info,
-	siteFooterColumns.contact,
-	siteFooterColumns.hours,
-];
 ---
 
-<footer
-	class="site-footer relative z-[1] border-t border-surface-subtle bg-surface-muted pt-16 lg:pt-20"
-	aria-labelledby="site-footer-heading"
->
-	<div class="container site-footer__main pb-[calc(4.75rem+env(safe-area-inset-bottom))] pt-4 lg:pb-12 lg:pt-6">
-		<h2 id="site-footer-heading" class="sr-only">Site information</h2>
-		<div class="row">
-			{
-				columns.map((col) => (
-					<div class="col-md-3">
-						<h3 class="type-14 lh-22 text-fg-gray-900">{col.title}</h3>
-						<ul class="mt-3 space-y-2">
-							{col.items.map((item) => (
-								<li>
-									<a
-										href={item.href}
-										class="type-12-8 lh-22 text-fg-gray-500 no-underline transition-colors hover:text-fg-gray-900"
-										{...(item.href.startsWith('http')
-											? { target: '_blank', rel: 'noopener noreferrer' }
-											: {})}
-									>
-										{item.label}
-									</a>
-								</li>
-							))}
-						</ul>
-					</div>
-				))
-			}
-		</div>
-		<p class="type-11-2 lh-22 mt-10 border-t border-surface-subtle pt-6 text-center text-fg-gray-500">
-			© {new Date().getFullYear()} Tejaku Lataxi · Bali personal transport
+<footer class="site-footer relative z-[1]" aria-labelledby="site-footer-heading">
+	<div
+		class="site-footer__credits px-4 py-4 pb-[calc(3.25rem+env(safe-area-inset-bottom))] text-center lg:py-5 lg:pb-8"
+	>
+		<h2 id="site-footer-heading" class="sr-only">Site credits</h2>
+		<p class="type-11-2 lh-22 text-fg-gray-500">
+			© {new Date().getFullYear()} safe-travel-in bali/Demo-site
 		</p>
+		<p class="type-11-2 lh-22 mt-1 text-fg-gray-500">by Mikael STUDIOS</p>
 	</div>
 </footer>
-
-<style>
-	@media (min-width: 1024px) {
-		.site-footer .site-footer__main {
-			padding-bottom: 3rem;
-		}
-	}
-</style>

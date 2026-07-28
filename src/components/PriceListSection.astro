@@ -1,4 +1,5 @@
 ---
+import BrandIntroParagraph from './BrandIntroParagraph.astro';
 import {
 	buildTransferWhatsAppHref,
 	priceListCopy,
@@ -15,9 +16,10 @@ import {
 			<h2 id="price-list-heading" class="type-section-title mt-2 text-fg-gray-900">
 				{priceListCopy.heading}
 			</h2>
-			<p class="body-copy mx-auto mt-6 max-w-3xl text-left text-fg-ink">
-				{priceListCopy.intro}
-			</p>
+			<BrandIntroParagraph
+				tail={priceListCopy.introTail}
+				class="body-copy mx-auto mt-6 max-w-3xl text-left text-fg-gray-500"
+			/>
 		</div>
 
 		<div class="row mt-4 justify-center">

@@ -1,5 +1,5 @@
 ---
-import { getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import type { InstagramPost } from '../config/instagramPosts.ts';
 import {
 	instagramPortraitSizes,
@@ -15,20 +15,6 @@ interface Props {
 }
 
 const { post, embedded = false } = Astro.props;
-
-const imgDefault = await getImage({
-	src: post.image,
-	width: instagramTileWidth,
-	format: 'webp',
-	quality: instagramTileQuality,
-});
-
-const imgRetina = await getImage({
-	src: post.image,
-	width: instagramTileWidth2x,
-	format: 'webp',
-	quality: instagramTileQuality,
-});
 ---
 
 <a
@@ -41,13 +27,15 @@ const imgRetina = await getImage({
 		!embedded && 'instagram-bloque__tile--standalone mx-auto max-w-full rounded-md',
 	]}
 >
-	<img
-		src={imgDefault.src}
-		srcset={`${imgDefault.src} ${instagramTileWidth}w, ${imgRetina.src} ${instagramTileWidth2x}w`}
-		sizes={instagramPortraitSizes}
+	<Image
+		src={post.image}
 		alt={post.alt}
-		width={imgDefault.attributes.width}
-		height={imgDefault.attributes.height}
+		widths={[instagramTileWidth, instagramTileWidth2x]}
+		sizes={instagramPortraitSizes}
+		format="webp"
+		quality={instagramTileQuality}
+		width={instagramTileWidth}
+		height={Math.round((instagramTileWidth * 5) / 4)}
 		class="aspect-[4/5] h-auto w-full object-cover transition-transform duration-300 group-hover:scale-[1.01]"
 		loading="lazy"
 		decoding="async"

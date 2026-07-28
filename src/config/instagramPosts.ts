@@ -10,6 +10,9 @@ import post6 from '../assets/instagram/post-6.jpg';
 export const instagramProfileUrl =
 	'https://www.instagram.com/bali_personal_transport_taxi';
 
+/** Section kicker above the embedded post card. */
+export const instagramSectionKicker = 'Instagram' as const;
+
 export interface InstagramPost {
 	id: string;
 	href: string;

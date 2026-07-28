@@ -1,4 +1,5 @@
 import { priceListWhatsAppPhone } from './priceList.ts';
+import { siteBrandIntroTail } from './siteBrand.ts';
 
 export interface CarCharterPlan {
 	id: string;
@@ -11,8 +12,7 @@ export interface CarCharterPlan {
 export const carCharterCopy = {
 	kicker: 'Your Personal Bali Taxi Driver',
 	heading: 'Car Charter Service',
-	intro:
-		'Tejakula Taxi is a place that serves car and taxi rentals. We are here to provide accommodation according to your needs. If you want to travel from one place to another, we recommend choosing a taxi service, because it is more efficient, easy',
+	introTail: siteBrandIntroTail,
 	priceLabel: 'PER CAR',
 	bookLabel: 'Booking Now',
 } as const;
@@ -68,6 +68,6 @@ export const carCharterPlans: CarCharterPlan[] = [
 ];
 
 export function buildCarCharterWhatsAppHref(planTitle: string): string {
-	const text = `Halo Admin Tejakula Taxi, saya ingin booking ${planTitle} (Car Charter).\r\nApakah bisa dibantu?`;
+	const text = `Halo Admin travel-safe, saya ingin booking ${planTitle} (Car Charter).\r\nApakah bisa dibantu?`;
 	return `https://wa.me/${priceListWhatsAppPhone}?text=${encodeURIComponent(text)}`;
 }

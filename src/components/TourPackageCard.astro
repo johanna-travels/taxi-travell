@@ -1,5 +1,5 @@
 ---
-import { getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import type { TourPackage } from '../config/tourPackages.ts';
 import { tourPackagesLinksEnabled } from '../config/tourPackages.ts';
 import {
@@ -15,34 +15,22 @@ interface Props {
 
 const { tour } = Astro.props;
 
-const imgDefault = await getImage({
-	src: tour.image,
-	width: tourTileWidth,
-	format: 'webp',
-	quality: tourTileQuality,
-});
-
-const imgRetina = await getImage({
-	src: tour.image,
-	width: tourTileWidth2x,
-	format: 'webp',
-	quality: tourTileQuality,
-});
-
-const imgWidth = imgDefault.attributes.width ?? tourTileWidth;
-const imgHeight = imgDefault.attributes.height ?? Math.round(tourTileWidth * 0.75);
+const imgWidth = tourTileWidth;
+const imgHeight = Math.round(tourTileWidth * 0.75);
 ---
 
 {
 	tourPackagesLinksEnabled ? (
 		<a class="tour-package-card" href={tour.href}>
 			<div class="wrap-tour">
-				<img
+				<Image
 					class="img-fluid"
-					src={imgDefault.src}
-					srcset={`${imgDefault.src} ${tourTileWidth}w, ${imgRetina.src} ${tourTileWidth2x}w`}
-					sizes={tourTileSizes}
+					src={tour.image}
 					alt={tour.imageAlt}
+					widths={[tourTileWidth, tourTileWidth2x]}
+					sizes={tourTileSizes}
+					format="webp"
+					quality={tourTileQuality}
 					width={imgWidth}
 					height={imgHeight}
 					loading="lazy"
@@ -64,12 +52,14 @@ const imgHeight = imgDefault.attributes.height ?? Math.round(tourTileWidth * 0.7
 	) : (
 		<article class="tour-package-card tour-package-card--static" aria-label={tour.title}>
 			<div class="wrap-tour">
-				<img
+				<Image
 					class="img-fluid"
-					src={imgDefault.src}
-					srcset={`${imgDefault.src} ${tourTileWidth}w, ${imgRetina.src} ${tourTileWidth2x}w`}
-					sizes={tourTileSizes}
+					src={tour.image}
 					alt={tour.imageAlt}
+					widths={[tourTileWidth, tourTileWidth2x]}
+					sizes={tourTileSizes}
+					format="webp"
+					quality={tourTileQuality}
 					width={imgWidth}
 					height={imgHeight}
 					loading="lazy"

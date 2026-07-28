@@ -1,0 +1,15 @@
+---
+import { siteBrandName } from '../config/siteBrand.ts';
+
+interface Props {
+	/** Text after the brand name (starts with space). */
+	tail: string;
+	class?: string;
+}
+
+const { tail, class: className } = Astro.props;
+---
+
+<p class={className}>
+	<span class="font-semibold text-fg-black">{siteBrandName}</span>{tail}
+</p>
